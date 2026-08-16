@@ -34,6 +34,41 @@ a{text-decoration:none;color:inherit}
 @keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-50px,60px) scale(1.08)}}
 @keyframes drift3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.1)}}
 
+/* --- animated bubble + starfall background --- */
+.bubble-field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bubble{position:absolute;bottom:-90px;border-radius:50%;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.22),rgba(166,167,255,.08) 42%,transparent 72%);border:1px solid rgba(255,255,255,.08);filter:blur(.2px);animation:floatBubble linear infinite;opacity:0}
+.bubble:nth-child(1){width:70px;height:70px;left:8%;animation-duration:18s;animation-delay:-4s}
+.bubble:nth-child(2){width:35px;height:35px;left:20%;animation-duration:14s;animation-delay:-9s}
+.bubble:nth-child(3){width:110px;height:110px;left:34%;animation-duration:23s;animation-delay:-15s}
+.bubble:nth-child(4){width:48px;height:48px;left:52%;animation-duration:16s;animation-delay:-6s}
+.bubble:nth-child(5){width:85px;height:85px;left:68%;animation-duration:20s;animation-delay:-12s}
+.bubble:nth-child(6){width:28px;height:28px;left:82%;animation-duration:13s;animation-delay:-3s}
+.bubble:nth-child(7){width:58px;height:58px;left:93%;animation-duration:19s;animation-delay:-10s}
+@keyframes floatBubble{
+  0%{transform:translate3d(0,0,0) scale(.75);opacity:0}
+  10%{opacity:.5}
+  50%{transform:translate3d(45px,-55vh,0) scale(1.08);opacity:.34}
+  80%{opacity:.18}
+  100%{transform:translate3d(-35px,-115vh,0) scale(.9);opacity:0}
+}
+.starfall{position:absolute;inset:0;overflow:hidden}
+.star{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;box-shadow:0 0 7px 1px rgba(255,255,255,.8);opacity:0;animation:fall linear infinite}
+.star:after{content:"";position:absolute;width:55px;height:1px;right:1px;top:0;transform:rotate(-28deg);transform-origin:right center;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65));}
+.star:nth-child(1){left:7%;top:-5%;animation-duration:5.5s;animation-delay:-1s}
+.star:nth-child(2){left:18%;top:-12%;animation-duration:7s;animation-delay:-4s}
+.star:nth-child(3){left:31%;top:-8%;animation-duration:4.8s;animation-delay:-2.7s}
+.star:nth-child(4){left:44%;top:-18%;animation-duration:6.2s;animation-delay:-5s}
+.star:nth-child(5){left:58%;top:-10%;animation-duration:5.2s;animation-delay:-1.8s}
+.star:nth-child(6){left:71%;top:-15%;animation-duration:7.5s;animation-delay:-6s}
+.star:nth-child(7){left:84%;top:-6%;animation-duration:4.5s;animation-delay:-3.5s}
+.star:nth-child(8){left:95%;top:-20%;animation-duration:6.8s;animation-delay:-4.5s}
+@keyframes fall{
+  0%{transform:translate3d(0,0,0) scale(.6);opacity:0}
+  8%{opacity:.8}
+  65%{opacity:.7}
+  100%{transform:translate3d(-180px,115vh,0) scale(1);opacity:0}
+}
+
 /* --- scroll progress --- */
 .progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#a6a7ff,#75e4ff);z-index:50;width:0%;transition:width .1s linear;box-shadow:0 0 12px rgba(122,150,255,.6)}
 
@@ -130,7 +165,14 @@ footer{border-top:1px solid var(--line);padding:25px 0 35px;color:var(--muted);f
 <body>
 
 <div class="progress" id="progress"></div>
-<div class="orb-field"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+<div class="orb-field"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>\n<div class="bubble-field" aria-hidden="true">
+  <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+  <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+  <div class="starfall">
+    <i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i>
+    <i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i>
+  </div>
+</div>
 
 <div class="wrap">
 <header id="siteHeader">
