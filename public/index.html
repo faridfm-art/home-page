@@ -2,638 +2,212 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Nihongo Path — website pembelajaran bahasa Jepang dari pemula hingga JLPT N4 dalam satu file HTML.">
-<title>Nihongo Path — Japanese Learning N5 → N4</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Farid's Web Gallery</title>
+<meta name="description" content="Personal web gallery untuk menyimpan dan membuka project website Farid.">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 :root{
-  --bg:#f4efe3;--surface:#fffdf8;--surface2:#ece3cf;--text:#211a10;--muted:#7c7160;
-  --line:#ddd0ae;--primary:#2a4494;--primary2:#47639e;--accent:#b8342f;--ok:#4f7a4a;
-  --shadow:0 18px 50px rgba(40,30,10,.1);--radius:20px;
-  --font-display:"Shippori Mincho",serif;--font-body:"Zen Kaku Gothic New",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;--font-mono:"JetBrains Mono",monospace;
-  --paper:radial-gradient(circle at 1px 1px, rgba(0,0,0,.035) 1px, transparent 0);
+  --bg:#090a0d; --surface:#101217; --surface2:#151820; --text:#f5f5f3;
+  --muted:#8d929d; --line:rgba(255,255,255,.09); --accent:#fff;
+  --shadow:0 30px 80px rgba(0,0,0,.38);
 }
-[data-theme="dark"]{
-  --bg:#12141c;--surface:#191c26;--surface2:#212533;--text:#f1efe6;--muted:#9ba0b8;
-  --line:#2c303f;--primary:#8199e8;--primary2:#a7bbf5;--accent:#e17169;--ok:#7fb27a;
-  --shadow:0 18px 55px rgba(0,0,0,.4);
-  --paper:radial-gradient(circle at 1px 1px, rgba(255,255,255,.03) 1px, transparent 0);
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:
+  radial-gradient(circle at 15% 5%,rgba(123,92,255,.13),transparent 28%),
+  radial-gradient(circle at 85% 10%,rgba(0,209,255,.09),transparent 25%),var(--bg);
+  color:var(--text);font-family:"DM Sans",sans-serif;min-height:100vh;
 }
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}}
-body{margin:0;font-family:var(--font-body);background:var(--bg) var(--paper);background-size:auto,16px 16px;color:var(--text);transition:background-color .55s cubic-bezier(.22,1,.36,1),color .55s cubic-bezier(.22,1,.36,1)}
-@supports (view-transition-name: root){
-  ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
-  ::view-transition-old(root){z-index:1}
-  ::view-transition-new(root){z-index:2;animation:themeReveal .72s cubic-bezier(.22,1,.36,1) both}
-  @keyframes themeReveal{from{clip-path:circle(0% at var(--theme-x,50%) var(--theme-y,50%));opacity:.96}to{clip-path:circle(150% at var(--theme-x,50%) var(--theme-y,50%));opacity:1}}
-}
-h1,h2,h3,.eyebrow,.brand strong,.flash .big,.jp{font-family:var(--font-display)}
-button,input,select{font:inherit}button{cursor:pointer}
-::selection{background:var(--accent);color:#fff}
-.app{display:flex;min-height:100vh}
-.sidebar{position:fixed;z-index:30;left:0;top:0;bottom:0;width:264px;background:var(--surface);border-right:1px solid var(--line);padding:24px 16px;display:flex;flex-direction:column;box-shadow:1px 0 0 rgba(0,0,0,.02)}
-.brand{display:flex;align-items:center;gap:12px;padding:5px 10px 18px}
-.brand-mark{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--primary2),var(--primary));display:grid;place-items:center;color:#fff;font-weight:900;font-size:21px;box-shadow:0 10px 25px rgba(42,68,148,.28);position:relative}
-.brand-mark:after{content:"";position:absolute;inset:-4px;border:1.5px solid var(--primary);border-radius:50%;opacity:.35}
-.brand strong{display:block;font-size:17px;letter-spacing:.01em}.brand span{display:block;font-size:11px;color:var(--muted);margin-top:2px;font-family:var(--font-body)}
-.streak{display:flex;align-items:center;gap:8px;margin:0 10px 18px;padding:9px 12px;background:var(--surface2);border:1px solid var(--line);border-radius:13px;font-size:12.5px;font-weight:700;color:var(--muted)}
-.streak b{color:var(--accent);font-family:var(--font-mono);font-size:14px}
-.nav{display:grid;gap:4px;position:relative}
-.nav button{border:0;background:transparent;color:var(--muted);padding:11px 12px;border-radius:13px;text-align:left;display:flex;align-items:center;gap:11px;font-weight:700;transition:color .2s,transform .2s;position:relative;z-index:1}
-.nav button:hover{color:var(--text);transform:translateX(3px)}
-.nav button.active{color:#fff}
-.nav-pill{position:absolute;left:0;width:100%;height:42px;background:linear-gradient(120deg,var(--primary),var(--primary2));border-radius:13px;box-shadow:0 8px 20px rgba(42,68,148,.3);transition:transform .38s cubic-bezier(.22,1,.36,1);z-index:0;pointer-events:none}
-.nav .ico{width:25px;text-align:center}.side-bottom{margin-top:auto;display:grid;gap:8px}
-.theme-btn{width:52px;height:28px;padding:0;border:0;border-radius:999px;background:#6466e8;position:relative;display:block;margin:0 0 0 10px;box-shadow:inset 0 1px 2px rgba(0,0,0,.14),0 5px 14px rgba(76,80,210,.18);transition:background .35s ease,box-shadow .35s ease,transform .2s ease;overflow:visible}
-.theme-btn:hover{transform:translateY(-1px);box-shadow:inset 0 1px 2px rgba(0,0,0,.14),0 8px 18px rgba(76,80,210,.25)}
-.theme-btn:active{transform:scale(.94)}
-.theme-btn .theme-knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;display:grid;place-items:center;color:#4d4fc8;font-size:14px;line-height:1;box-shadow:0 2px 6px rgba(0,0,0,.18);transition:transform .48s cubic-bezier(.22,1,.36,1),color .3s ease}
-.theme-btn .theme-knob span{display:block;transform:rotate(0deg);transition:transform .48s cubic-bezier(.22,1,.36,1)}
-[data-theme="dark"] .theme-btn{background:#6466e8}
-[data-theme="dark"] .theme-btn .theme-knob{transform:translateX(24px);color:#4d4fc8}
-[data-theme="dark"] .theme-btn .theme-knob span{transform:rotate(180deg)}
-.theme-btn .theme-knob{will-change:transform}
-.theme-btn .theme-knob span{will-change:transform}
-.theme-btn .theme-label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-body,.sidebar,.card,.stat,.search,.toolbar input,.toolbar select,.table-wrap,.data-table th,.kana,.flash,.btn,.tab,.option,.result,.mobile-menu,.streak{transition-property:background-color,color,border-color,box-shadow;transition-duration:.55s;transition-timing-function:cubic-bezier(.22,1,.36,1)}
-.kana{color:var(--text)}
-.kana b{color:var(--text)}
-.brush-rule{width:64px;height:10px;margin:2px 0 16px;background:linear-gradient(90deg,var(--primary) 0%,var(--primary) 55%,transparent 55%),linear-gradient(90deg,var(--accent) 0%,var(--accent) 22%,transparent 22%);background-size:100% 3px,100% 3px;background-repeat:no-repeat;background-position:0 2px,0 8px;border-radius:2px;opacity:.85}
-.hanko{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--accent);color:#fff;font-family:var(--font-display);font-weight:800;font-size:13px;box-shadow:0 4px 10px rgba(184,52,47,.35);transform:rotate(-6deg);line-height:1}
-.hanko.pop{animation:stamp .45s cubic-bezier(.2,1.4,.4,1)}
-@keyframes stamp{0%{transform:rotate(-6deg) scale(1.9);opacity:0}55%{opacity:1}100%{transform:rotate(-6deg) scale(1)}}
-.main{margin-left:264px;width:calc(100% - 264px);padding:28px 34px 70px}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:28px}
-.mobile-menu{display:none}
-.search{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);padding:10px 14px;border-radius:14px;min-width:280px;transition:border-color .2s,box-shadow .2s}
-.search:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 18%,transparent)}
-.search input{border:0;outline:0;background:transparent;color:var(--text);width:100%}
-.hero{background:linear-gradient(135deg,var(--surface),var(--surface2));border:1px solid var(--line);border-radius:30px;padding:36px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.hero:after{content:"日本語";position:absolute;right:-10px;bottom:-45px;font-size:150px;font-weight:900;color:var(--primary);opacity:.06;pointer-events:none;font-family:var(--font-display)}
-.hero:before{content:"";position:absolute;top:-60px;left:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);opacity:.12}
-.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.15em;color:var(--primary);font-weight:800}
-h1{font-size:clamp(32px,5vw,58px);line-height:1.08;margin:10px 0 14px;letter-spacing:0;font-weight:700}
-h2{font-size:28px;margin:0 0 8px;font-weight:700}h3{margin:0 0 7px;font-family:var(--font-body);font-weight:800}.lead{max-width:730px;color:var(--muted);font-size:16px;line-height:1.75}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
-.btn{border:1px solid var(--line);background:var(--surface);color:var(--text);padding:11px 15px;border-radius:13px;font-weight:800;transition:transform .18s,box-shadow .18s,border-color .18s;position:relative;overflow:hidden;isolation:isolate}
-.btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(20,25,45,.1);border-color:var(--primary)}
-.btn:active{transform:translateY(0) scale(.97)}
-.btn.primary{background:linear-gradient(120deg,var(--primary),var(--primary2));color:#fff;border-color:transparent}
-.btn.ghost{background:transparent}
-.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);transform:scale(0);animation:ripple .55s ease-out;pointer-events:none;z-index:-1}
-[data-theme="dark"] .ripple{background:rgba(255,255,255,.18)}
-@keyframes ripple{to{transform:scale(3.2);opacity:0}}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 28px}
-.stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;transition:transform .2s,box-shadow .2s}
-.stat:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
-.stat small{color:var(--muted)}.stat strong{font-size:26px;display:block;margin-top:7px;font-family:var(--font-mono)}
-.progress{height:9px;background:var(--surface2);border-radius:999px;overflow:hidden;position:relative}
-.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary2));border-radius:inherit;transition:width 1s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden}
-.progress i:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);animation:shimmer 2.2s ease-in-out infinite}
-@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:35px 0 4px}
-.section-head p{margin:0;color:var(--muted);font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 8px 30px rgba(20,25,45,.035);transition:transform .22s,box-shadow .22s}
-.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.road{position:relative;overflow:hidden;cursor:pointer;transition:transform .22s,box-shadow .22s;opacity:0;animation:rise .5s ease forwards}
-.road:nth-child(1){animation-delay:.02s}.road:nth-child(2){animation-delay:.06s}.road:nth-child(3){animation-delay:.1s}.road:nth-child(4){animation-delay:.14s}.road:nth-child(5){animation-delay:.18s}.road:nth-child(6){animation-delay:.22s}.road:nth-child(7){animation-delay:.26s}.road:nth-child(8){animation-delay:.3s}.road:nth-child(9){animation-delay:.34s}.road:nth-child(10){animation-delay:.38s}
-@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.road:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-.road .level{font-size:11px;font-weight:900;color:var(--primary);letter-spacing:.08em}.road h3{margin-top:10px}.road p{color:var(--muted);font-size:13px;line-height:1.55}
-.road .check{position:absolute;right:14px;top:14px;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);transition:.3s}
-.road.done .check{background:var(--accent);color:#fff;border-color:var(--accent);transform:rotate(-8deg)}.road.done{border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
-.page{display:none}.page.active{display:block;animation:fade .4s cubic-bezier(.22,1,.36,1)}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.toolbar input,.toolbar select{border:1px solid var(--line);background:var(--surface);color:var(--text);padding:11px 13px;border-radius:12px;outline:none;transition:border-color .18s,box-shadow .18s}
-.toolbar input:focus,.toolbar select:focus{border-color:var(--primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 16%,transparent)}
-.kana-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:8px;perspective:800px}
-.kana{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:13px 6px;text-align:center;cursor:pointer;transition:transform .5s cubic-bezier(.22,1,.36,1),border-color .18s,box-shadow .18s;transform-style:preserve-3d;position:relative}
-.kana:hover{border-color:var(--primary);box-shadow:0 10px 22px rgba(42,68,148,.12)}
-.kana.flip{transform:rotateY(180deg) translateY(-2px)}
-.kana b{display:block;font-size:26px;backface-visibility:hidden}
-.kana span{font-size:11px;color:var(--muted);backface-visibility:hidden}
-.kana.flip b,.kana.flip span{transform:rotateY(180deg)}
-.kana.mastered{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 8%,var(--surface))}
-.table-wrap{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:auto}.data-table{width:100%;border-collapse:collapse;min-width:680px}.data-table th,.data-table td{padding:13px 15px;border-bottom:1px solid var(--line);text-align:left}.data-table th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--surface2);position:sticky;top:0}
-.data-table tbody tr{transition:background .15s}
-.data-table tbody tr:hover{background:var(--surface2)}
-.data-table tr:last-child td{border-bottom:0}.jp{font-size:20px;font-weight:800}.reading{font-size:12px;color:var(--muted)}
-.know{border:1px solid var(--line);background:var(--surface2);border-radius:10px;padding:7px 11px;font-weight:800;color:var(--text);transition:transform .25s cubic-bezier(.2,1.4,.4,1),background .2s,border-color .2s}
-.know.done{background:var(--accent);color:#fff;border-color:var(--accent)}
-.know.just-done{animation:stamp .4s cubic-bezier(.2,1.4,.4,1)}
-.flash-wrap{display:grid;place-items:center;min-height:380px;perspective:1200px}
-.flash{width:min(560px,100%);min-height:290px;background:linear-gradient(135deg,var(--surface),var(--surface2));border:1px solid var(--line);border-radius:30px;display:grid;place-items:center;text-align:center;box-shadow:var(--shadow);padding:30px;transition:transform .4s cubic-bezier(.22,1,.36,1)}
-.flash.turn{animation:cardTurn .5s cubic-bezier(.4,0,.2,1)}
-@keyframes cardTurn{0%{transform:rotateY(0)}50%{transform:rotateY(90deg)}51%{transform:rotateY(-90deg)}100%{transform:rotateY(0)}}
-.flash .big{font-size:72px;font-weight:900}.flash .meaning{font-size:22px;color:var(--muted);margin-top:10px}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
-.tab{border:1px solid var(--line);background:var(--surface);color:var(--muted);padding:9px 14px;border-radius:999px;font-weight:800;font-size:13px;transition:.2s;position:relative;overflow:hidden}
-.tab:hover{color:var(--text);border-color:var(--primary)}
-.tab.active{background:linear-gradient(120deg,var(--primary),var(--primary2));border-color:transparent;color:#fff}
-.quiz{display:grid;gap:10px;max-width:720px}
-.option{border:1px solid var(--line);background:var(--surface);color:var(--text);padding:14px;border-radius:13px;text-align:left;transition:transform .15s,border-color .15s,background .15s}
-.option:hover{border-color:var(--primary);transform:translateX(3px)}
-.option.correct{background:color-mix(in srgb,var(--ok) 16%,var(--surface));border-color:var(--ok);animation:pulseGood .5s ease}
-.option.wrong{background:color-mix(in srgb,var(--accent) 14%,var(--surface));border-color:var(--accent);animation:shake .4s ease}
-@keyframes pulseGood{0%{transform:scale(1)}40%{transform:scale(1.03)}100%{transform:scale(1)}}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-.result{padding:14px;border-radius:13px;background:var(--surface2);color:var(--muted);transition:color .2s}
-.quiz-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin:2px 0 14px;font-weight:700}
-.quiz-meta b{color:var(--text);font-family:var(--font-mono)}
-.sources{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.source a{color:var(--primary);font-weight:800;text-decoration:none}.source p{font-size:13px;color:var(--muted);line-height:1.6}
-.toast{position:fixed;z-index:100;right:22px;bottom:22px;background:var(--text);color:var(--bg);padding:12px 16px;border-radius:13px;opacity:0;transform:translateY(10px);pointer-events:none;transition:.3s cubic-bezier(.22,1,.36,1);font-weight:700}.toast.show{opacity:1;transform:none}
-.empty{padding:40px;text-align:center;color:var(--muted)}
-footer{margin-top:55px;color:var(--muted);font-size:12px;text-align:center}
-#petals{position:fixed;inset:0;pointer-events:none;z-index:90;overflow:hidden}
-.petal{position:absolute;top:-24px;font-size:18px;animation:fall linear forwards;will-change:transform}
-@keyframes fall{to{transform:translateY(108vh) translateX(var(--drift,0px)) rotate(360deg);opacity:.15}}
-@media(max-width:1000px){.sidebar{width:220px}.main{margin-left:220px;width:calc(100% - 220px);padding:22px}.grid,.roadmap,.sources{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.kana-grid{grid-template-columns:repeat(7,1fr)}}
-@media(max-width:720px){.sidebar{transform:translateX(-100%);transition:.25s;width:280px;box-shadow:var(--shadow)}.sidebar.open{transform:none}.main{margin-left:0;width:100%;padding:16px}.mobile-menu{display:block;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:9px 12px;color:var(--text)}.topbar{margin-bottom:18px}.search{min-width:0;flex:1}.hero{padding:24px}.grid,.roadmap,.sources{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.kana-grid{grid-template-columns:repeat(5,1fr)}}
-@media(max-width:430px){.stats{grid-template-columns:1fr}.kana-grid{grid-template-columns:repeat(4,1fr)}}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{text-decoration:none;color:inherit}
+.wrap{width:min(1180px,calc(100% - 40px));margin:auto}
+header{height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+.brand{display:flex;gap:12px;align-items:center;font-family:"Space Grotesk";font-weight:700}
+.logo{width:38px;height:38px;border:1px solid var(--line);border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#1c1f27,#0c0d10);box-shadow:inset 0 1px rgba(255,255,255,.08)}
+.logo span{font-size:14px}
+.nav{display:flex;gap:8px;color:var(--muted);font-size:14px}
+.nav a{padding:9px 13px;border-radius:10px;transition:.25s}
+.nav a:hover{background:var(--surface2);color:var(--text)}
+.hero{padding:100px 0 70px;position:relative}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;color:#b7bbc5;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.dot{width:7px;height:7px;border-radius:50%;background:#7cffb2;box-shadow:0 0 18px #7cffb2}
+h1{font-family:"Space Grotesk";font-size:clamp(48px,8vw,92px);line-height:.94;letter-spacing:-.065em;max-width:900px;margin:20px 0}
+.gradient{background:linear-gradient(110deg,#fff 10%,#a6a7ff 45%,#75e4ff 85%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:17px;line-height:1.7;max-width:620px;margin:0}
+.hero-actions{display:flex;gap:10px;margin-top:30px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:rgba(255,255,255,.055);padding:12px 17px;border-radius:12px;font-weight:600;font-size:14px;transition:.25s;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.18)}
+.btn.primary{background:#f5f5f3;color:#0a0b0d;border-color:#f5f5f3}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin:25px 0 22px}
+.section-head h2{font:600 30px "Space Grotesk";letter-spacing:-.04em;margin:0}
+.section-head span{font-size:13px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding-bottom:80px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s}
+.card:hover{transform:translateY(-8px);border-color:rgba(255,255,255,.2)}
+.preview{height:260px;background:#0c0e12;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.browser{position:absolute;inset:12px;border:1px solid rgba(255,255,255,.11);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 18px 50px rgba(0,0,0,.4);transform:perspective(900px) rotateX(1deg);transition:.4s}
+.card:hover .browser{transform:perspective(900px) rotateX(0) scale(1.015)}
+.bar{height:25px;background:#16181d;display:flex;align-items:center;padding:0 9px;gap:5px}
+.bar i{width:6px;height:6px;border-radius:50%;background:#777}
+.url{height:12px;margin-left:7px;border-radius:6px;background:#282b31;width:42%}
+.mock{height:calc(100% - 25px);position:relative;overflow:hidden}
+.mock.port{background:linear-gradient(135deg,#f6f3ed 0 48%,#dedbd2 48%);color:#111}
+.mock.port:after{content:"FARID";position:absolute;right:20px;top:22px;font:700 42px "Space Grotesk";opacity:.12}
+.mock.port .mtext{position:absolute;left:20px;top:25px;font:700 23px "Space Grotesk";max-width:150px}
+.mock.port .mline{position:absolute;left:20px;top:82px;width:95px;height:7px;background:#111}
+.mock.port .mline2{position:absolute;left:20px;top:99px;width:130px;height:5px;background:#777}
+.mock.food{background:#111318;color:#fff}
+.mock.food:before{content:"CALORIE LEDGER";position:absolute;left:18px;top:18px;font:700 15px "Space Grotesk";letter-spacing:.05em}
+.mock.food .circle{position:absolute;right:22px;top:44px;width:92px;height:92px;border-radius:50%;border:9px solid #d7ff67;box-shadow:0 0 0 1px #333}
+.mock.food .box{position:absolute;left:18px;right:18px;bottom:16px;height:58px;border:1px solid #343840;border-radius:9px;background:#171a20}
+.mock.jp{background:#f5f1e8;color:#1b1a17}
+.mock.jp:before{content:"日本語";position:absolute;right:20px;top:12px;font-size:35px;font-family:serif;opacity:.18}
+.mock.jp .jtitle{position:absolute;left:18px;top:18px;font:700 20px "Space Grotesk"}
+.mock.jp .kana{position:absolute;left:18px;top:61px;font-size:34px;font-family:serif}
+.mock.jp .cards{position:absolute;left:18px;right:18px;bottom:15px;height:48px;display:flex;gap:7px}
+.mock.jp .cards b{flex:1;background:#fff;border:1px solid #d7d2c7;border-radius:8px;display:grid;place-items:center;font-size:17px}
+.overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.2));pointer-events:none}
+.card-body{padding:21px}
+.meta{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;margin-bottom:10px}
+.tag{padding:5px 8px;border:1px solid var(--line);border-radius:7px}
+.card h3{font:600 25px "Space Grotesk";letter-spacing:-.035em;margin:0 0 8px}
+.card p{color:var(--muted);font-size:14px;line-height:1.6;min-height:45px;margin:0 0 18px}
+.card-foot{display:flex;gap:8px}
+.open{flex:1;text-align:center;background:#f3f3ef;color:#090a0d;border-radius:10px;padding:10px;font-weight:700;font-size:13px}
+.source{padding:10px;border:1px solid var(--line);border-radius:10px;color:var(--muted);font-size:13px}
+footer{border-top:1px solid var(--line);padding:25px 0 35px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between}
+.reveal{opacity:0;transform:translateY(18px);animation:rise .7s forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+@media(max-width:850px){.grid{grid-template-columns:1fr 1fr}.hero{padding-top:70px}}
+@media(max-width:600px){.wrap{width:min(100% - 24px,1180px)}header{height:68px}.nav{display:none}.hero{padding:60px 0}.hero p{font-size:15px}.grid{grid-template-columns:1fr}.preview{height:245px}footer{display:block}.footer-right{margin-top:8px}}
+
+.site-shot{width:100%;height:calc(100% - 25px);display:block;object-fit:cover;object-position:top center;background:#111;transition:transform .7s cubic-bezier(.16,1,.3,1),filter .5s;transform-origin:center top}
+.card:hover .site-shot{transform:scale(1.045);filter:saturate(1.05)}
+.preview{perspective:1200px}
+.browser{transform:perspective(1200px) rotateX(2deg) rotateY(0deg) translateY(0);transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s}
+.card:hover .browser{transform:perspective(1200px) rotateX(0deg) rotateY(0deg) translateY(-2px) scale(1.018);box-shadow:0 25px 60px rgba(0,0,0,.55)}
+.preview-fallback{position:absolute;inset:auto 22px 22px;font:600 12px "Space Grotesk";color:white;opacity:.0;pointer-events:none}
+.cursor-glow{position:fixed;width:320px;height:320px;border-radius:50%;pointer-events:none;z-index:-1;background:radial-gradient(circle,rgba(133,120,255,.11),transparent 65%);transform:translate(-50%,-50%);transition:opacity .25s}
+.card:after{content:"";position:absolute;inset:0;border-radius:22px;pointer-events:none;background:radial-gradient(500px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.08),transparent 35%);opacity:0;transition:opacity .3s}
+.card{position:relative}
+.card:hover:after{opacity:1}
 </style>
 </head>
 <body>
-<div id="petals"></div>
-<div class="app">
-<aside class="sidebar" id="sidebar">
-  <div class="brand"><div class="brand-mark">日</div><div><strong>Nihongo Path</strong><span>Pemula → JLPT N4</span></div></div>
-  <div class="brush-rule"></div>
-  <div class="streak" id="streakBadge">🔥 <b id="streakCount">0</b> hari beruntun</div>
-  <nav class="nav" id="navList" style="position:relative">
-    <div class="nav-pill" id="navPill"></div>
-    <button data-page="home"><span class="ico">⌂</span>Dashboard</button>
-    <button data-page="roadmap"><span class="ico">◈</span>Roadmap</button>
-    <button data-page="hiragana"><span class="ico">あ</span>Hiragana</button>
-    <button data-page="katakana"><span class="ico">カ</span>Katakana</button>
-    <button data-page="vocab"><span class="ico">語</span>Kosakata</button>
-    <button data-page="grammar"><span class="ico">文</span>Tata Bahasa</button>
-    <button data-page="kanji"><span class="ico">漢</span>Kanji</button>
-    <button data-page="practice"><span class="ico">✓</span>Latihan</button>
-    <button data-page="sources"><span class="ico">↗</span>Sumber online</button>
-  </nav>
-  <div class="side-bottom"><button class="theme-btn" id="themeBtn" type="button" aria-label="Ganti tema" title="Ganti tema"><span class="theme-knob"><span>☼</span></span><span class="theme-label">Ganti tema</span></button></div>
-</aside>
+<div class="wrap">
+<header>
+  <a class="brand" href="#"><div class="logo"><span>FF</span></div><span>Web Gallery</span></a>
+  <nav class="nav"><a href="#projects">Projects</a><a href="#about">About</a></nav>
+</header>
 
-<main class="main">
-  <div class="topbar">
-    <button class="mobile-menu" id="menuBtn">☰</button>
-    <div class="search"><span>⌕</span><input id="globalSearch" placeholder="Cari kosakata, kanji, grammar..." autocomplete="off"></div>
+<main>
+<section class="hero reveal">
+  <div class="eyebrow"><span class="dot"></span> Personal web collection</div>
+  <h1>Things I've <span class="gradient">built.</span></h1>
+  <p>A curated space to keep, explore, and launch the websites I've built. Minimal, polished, and focused on the work itself.</p>
+  <div class="hero-actions">
+    <a class="btn primary" href="#projects">Explore projects ↓</a>
+    <a class="btn" href="https://faridfmuharam-portofolio.vercel.app/" target="_blank">Portfolio ↗</a>
   </div>
+</section>
 
-  <section class="page active" id="page-home">
-    <div class="hero">
-      <div class="eyebrow">Japanese learning system</div>
-      <h1>日本語を、<br>pelan tapi pasti.</h1>
-      <p class="lead">Satu website untuk membangun fondasi bahasa Jepang dari nol sampai materi inti JLPT N4: huruf, kosakata, tata bahasa, kanji, roadmap, dan latihan. Progress tersimpan otomatis di browser.</p>
-      <div class="actions">
-        <button class="btn primary" onclick="go('roadmap')">Mulai dari roadmap →</button>
-        <button class="btn" onclick="go('practice')">Latihan cepat</button>
-      </div>
+<section id="projects">
+<div class="section-head reveal"><h2>Selected websites</h2><span>03 projects</span></div>
+<div class="grid">
+
+<article class="card reveal">
+  <div class="preview">
+    <div class="browser live-browser" data-url="https://faridfmuharam-portofolio.vercel.app/"><div class="bar"><i></i><i></i><i></i><div class="url"></div></div><img class="site-shot" src="https://image.thum.io/get/width/1200/crop/700/https://faridfmuharam-portofolio.vercel.app/" alt="Preview Personal Portfolio" loading="lazy"></div>
+    <div class="preview-fallback">Portfolio</div>
+  </div>
+  <div class="card-body">
+    <div class="meta"><span>01 / CREATIVE</span><span class="tag">Portfolio</span></div>
+    <h3>Personal Portfolio</h3>
+    <p>A personal portfolio showcasing 3D animation, graphic design, and UI/UX work.</p>
+    <div class="card-foot">
+      <a class="open" href="https://faridfmuharam-portofolio.vercel.app/" target="_blank">Open website ↗</a>
+      <a class="source" href="https://faridfmuharam-portofolio.vercel.app/" target="_blank" aria-label="Open">↗</a>
     </div>
-    <div class="stats">
-      <div class="stat"><small>Progress total</small><strong id="totalProgress">0%</strong><div class="progress"><i id="totalBar"></i></div></div>
-      <div class="stat"><small>Roadmap selesai</small><strong id="roadDone">0/10</strong></div>
-      <div class="stat"><small>Kosakata dikuasai</small><strong id="vocabDone">0</strong></div>
-      <div class="stat"><small>Kanji dikuasai</small><strong id="kanjiDone">0</strong></div>
+  </div>
+</article>
+
+<article class="card reveal">
+  <div class="preview">
+    <div class="browser live-browser" data-url="https://caloriesgweh.vercel.app/"><div class="bar"><i></i><i></i><i></i><div class="url"></div></div><img class="site-shot" src="https://image.thum.io/get/width/1200/crop/700/https://caloriesgweh.vercel.app/" alt="Preview Calorie Ledger" loading="lazy"></div>
+    <div class="preview-fallback">Calorie Ledger</div>
+  </div>
+  <div class="card-body">
+    <div class="meta"><span>02 / PRODUCTIVITY</span><span class="tag">Calorie AI</span></div>
+    <h3>Calorie Ledger</h3>
+    <p>A personal dashboard for tracking food, calories, macros, workouts, stats, and daily goals.</p>
+    <div class="card-foot">
+      <a class="open" href="https://caloriesgweh.vercel.app/" target="_blank">Open website ↗</a>
+      <a class="source" href="https://caloriesgweh.vercel.app/" target="_blank" aria-label="Open">↗</a>
     </div>
-    <div class="section-head"><div><h2>Jalur belajar</h2><p>Klik kartu untuk langsung membuka halaman materinya.</p></div><button class="btn" onclick="go('roadmap')">Lihat semua</button></div>
-    <div class="roadmap" id="homeRoadmap"></div>
-    <div class="section-head"><div><h2>Fokus belajar hari ini</h2><p>Mulai dari satu sesi kecil agar konsisten.</p></div></div>
-    <div class="grid">
-      <div class="card"><div class="eyebrow">10–15 menit</div><h3>Hiragana</h3><p class="lead">Latih 5–10 karakter dan baca kata sederhana.</p><button class="btn primary" onclick="go('hiragana')">Buka Hiragana</button></div>
-      <div class="card"><div class="eyebrow">15–20 menit</div><h3>Kosakata</h3><p class="lead">Pelajari kata N5/N4 dengan filter level dan kategori.</p><button class="btn primary" onclick="go('vocab')">Buka Kosakata</button></div>
-      <div class="card"><div class="eyebrow">10–20 menit</div><h3>Grammar</h3><p class="lead">Pahami pola, fungsi, dan contoh kalimat.</p><button class="btn primary" onclick="go('grammar')">Buka Grammar</button></div>
+  </div>
+</article>
+
+<article class="card reveal">
+  <div class="preview">
+    <div class="browser live-browser" data-url="https://nihongo-train.vercel.app/"><div class="bar"><i></i><i></i><i></i><div class="url"></div></div><img class="site-shot" src="https://image.thum.io/get/width/1200/crop/700/https://nihongo-train.vercel.app/" alt="Preview Nihongo Path" loading="lazy"></div>
+    <div class="preview-fallback">Nihongo Path</div>
+  </div>
+  <div class="card-body">
+    <div class="meta"><span>03 / EDUCATION</span><span class="tag">Japanese</span></div>
+    <h3>Nihongo Path</h3>
+    <p>A Japanese learning platform designed to guide beginners toward core JLPT N4 material.</p>
+    <div class="card-foot">
+      <a class="open" href="https://nihongo-train.vercel.app/" target="_blank">Open website ↗</a>
+      <a class="source" href="https://nihongo-train.vercel.app/" target="_blank" aria-label="Open">↗</a>
     </div>
-  </section>
+  </div>
+</article>
 
-  <section class="page" id="page-roadmap">
-    <div class="eyebrow">ROADMAP</div><h2>Beginner → N4</h2><p class="lead">Urutan dibuat bertahap. Materi dapat dibuka bebas, tetapi urutan ini membantu membangun fondasi.</p>
-    <div class="roadmap" id="roadmapFull"></div>
-  </section>
-
-  <section class="page" id="page-hiragana">
-    <div class="eyebrow">WRITING SYSTEM</div><h2>Hiragana</h2><p class="lead">Pelajari gojuuon, dakuten, handakuten, youon, serta tanda khusus. Klik karakter untuk mendengar pelafalannya.</p>
-    <div class="toolbar"><input id="hiraSearch" placeholder="Cari karakter / romaji..."><button class="btn" onclick="speakKana('あ')">🔊 Contoh suara</button></div>
-    <div class="kana-grid" id="hiraGrid"></div>
-    <div class="card" style="margin-top:18px"><h3>Target penguasaan</h3><p class="lead">Kuasai bentuk dasar → dakuten/handakuten → kombinasi kecil ゃゅょ → っ dan baca kata.</p><button class="btn primary" id="hiraDoneBtn" onclick="toggleModule('hira')">Tandai Hiragana selesai</button></div>
-  </section>
-
-  <section class="page" id="page-katakana">
-    <div class="eyebrow">WRITING SYSTEM</div><h2>Katakana</h2><p class="lead">Untuk kata serapan, nama asing, onomatope, dan banyak istilah modern. Klik karakter untuk mendengar pelafalannya.</p>
-    <div class="toolbar"><input id="kataSearch" placeholder="Cari karakter / romaji..."><button class="btn" onclick="speakKana('ア')">🔊 Contoh suara</button></div>
-    <div class="kana-grid" id="kataGrid"></div>
-    <div class="card" style="margin-top:18px"><h3>Target penguasaan</h3><p class="lead">Selain karakter dasar, perhatikan kombinasi seperti ティ, ファ, フォ dan penggunaan ー pada kata serapan.</p><button class="btn primary" id="kataDoneBtn" onclick="toggleModule('kata')">Tandai Katakana selesai</button></div>
-  </section>
-
-  <section class="page" id="page-vocab">
-    <div class="eyebrow">VOCABULARY</div><h2>Kosakata</h2><p class="lead">Kumpulan kosakata inti N5–N4 dengan bacaan, arti, kategori, dan tombol penguasaan. Data dibuat untuk belajar, bukan sebagai daftar resmi tunggal JLPT.</p>
-    <div class="toolbar">
-      <input id="vocabSearch" placeholder="Cari kanji, kana, atau arti...">
-      <select id="vocabLevel"><option value="all">Semua level</option><option value="N5">N5</option><option value="N4">N4</option></select>
-      <select id="vocabCat"><option value="all">Semua kategori</option></select>
-    </div>
-    <div class="table-wrap"><table class="data-table"><thead><tr><th>Kata</th><th>Bacaan</th><th>Arti</th><th>Level</th><th></th></tr></thead><tbody id="vocabBody"></tbody></table></div>
-  </section>
-
-  <section class="page" id="page-grammar">
-    <div class="eyebrow">GRAMMAR</div><h2>Tata Bahasa</h2><p class="lead">Pola grammar N5 → N4. Gunakan contoh kalimat sebagai titik awal lalu buat kalimatmu sendiri.</p>
-    <div class="toolbar">
-      <input id="grammarSearch" placeholder="Cari pola atau penjelasan...">
-      <select id="grammarLevel"><option value="all">Semua level</option><option value="N5">N5</option><option value="N4">N4</option></select>
-    </div>
-    <div class="table-wrap"><table class="data-table"><thead><tr><th>Level</th><th>Pola</th><th>Fungsi</th><th>Contoh</th><th>Arti</th></tr></thead><tbody id="grammarBody"></tbody></table></div>
-  </section>
-
-  <section class="page" id="page-kanji">
-    <div class="eyebrow">KANJI</div><h2>Kanji N5 → N4</h2><p class="lead">Daftar kanji pembelajaran dengan bacaan, arti, dan contoh kata. Daftar JLPT tidak dipublikasikan sebagai daftar kanji resmi tunggal, jadi gunakan ini sebagai kurikulum belajar praktis.</p>
-    <div class="toolbar"><input id="kanjiSearch" placeholder="Cari kanji, reading, arti..."><button class="btn" onclick="resetKanji()">Reset progress kanji</button></div>
-    <div class="table-wrap"><table class="data-table"><thead><tr><th>Kanji</th><th>Bacaan</th><th>Arti</th><th>Contoh</th><th>Status</th></tr></thead><tbody id="kanjiBody"></tbody></table></div>
-  </section>
-
-  <section class="page" id="page-practice">
-    <div class="eyebrow">PRACTICE</div><h2>Latihan cepat</h2><p class="lead">Flashcard dan kuis untuk kosakata, kanji, dan grammar. Jawaban yang salah otomatis masuk daftar review supaya bisa diulang.</p>
-    <div class="tabs" id="practiceTabs">
-      <button class="tab" data-mode="flash">🗂 Flashcard</button>
-      <button class="tab" data-mode="vocab">語 Kuis Kosakata</button>
-      <button class="tab" data-mode="kanji">漢 Kuis Kanji</button>
-      <button class="tab" data-mode="grammar">文 Kuis Grammar</button>
-      <button class="tab" data-mode="review">↺ Review Kesalahan</button>
-    </div>
-
-    <div id="practice-flash">
-      <div class="flash-wrap"><div class="flash" id="flashCard">
-        <div><div class="eyebrow">FLASHCARD</div><div class="big" id="flashWord">日本語</div><div class="reading" id="flashReading">にほんご</div><div class="meaning" id="flashMeaning">bahasa Jepang</div></div>
-      </div></div>
-      <div class="actions" style="justify-content:center"><button class="btn" onclick="prevFlash()">← Sebelumnya</button><button class="btn primary" onclick="speakFlash()">🔊 Dengarkan</button><button class="btn" onclick="nextFlash()">Berikutnya →</button></div>
-    </div>
-
-    <div id="practice-quiz" style="display:none">
-      <div class="section-head"><div><h2 id="quizTitle">Kuis</h2><p id="quizSub">Pilih jawaban yang benar.</p></div></div>
-      <div class="quiz-meta"><span>Skor: <b id="quizScore">0/0</b></span><span>Sisa di review: <b id="reviewCount">0</b></span></div>
-      <div class="card quiz" id="quizBox"></div>
-    </div>
-  </section>
-
-  <section class="page" id="page-sources">
-    <div class="eyebrow">RESOURCES</div><h2>Sumber belajar online</h2>
-    <p class="lead">Website ini menyusun kurikulum sendiri dengan merujuk pada sumber pembelajaran Jepang yang tersedia online. Materi sumber tidak disalin ke dalam website; gunakan tautan berikut untuk belajar lebih dalam.</p>
-    <div class="sources">
-      <div class="card source"><h3>IRODORI</h3><p>Materi Japan Foundation dari Starter sampai Pre-Intermediate, termasuk word lists, grammar notes, kanji words, dan worksheet.</p><a href="https://www.irodori.jpf.go.jp/en/resources.html" target="_blank" rel="noopener">Buka IRODORI →</a></div>
-      <div class="card source"><h3>JF Minato</h3><p>Kursus interaktif Japan Foundation, termasuk kursus mandiri Hiragana dan Katakana.</p><a href="https://www.minato-jf.jp/" target="_blank" rel="noopener">Buka Minato →</a></div>
-      <div class="card source"><h3>JLPT Official</h3><p>Gunakan situs resmi JLPT untuk informasi tentang ujian dan level. JLPT tidak menyediakan satu daftar resmi kosakata/kanji/grammar yang harus dihafal.</p><a href="https://www.jlpt.jp/e/" target="_blank" rel="noopener">Buka JLPT →</a></div>
-    </div>
-  </section>
-
-  <footer>Progress tersimpan di browser (localStorage). Satu file HTML — tidak membutuhkan backend.</footer>
-</main>
 </div>
-<div class="toast" id="toast"></div>
+</section>
+</main>
 
+<footer id="about">
+  <span>© 2026 Farid Fadillah Muharam</span>
+  <span class="footer-right">Built with curiosity &amp; too much coffee.</span>
+</footer>
+</div>
+
+<div class="cursor-glow" id="glow"></div>
 <script>
-const HIRAGANA = [["あ","a"],["い","i"],["う","u"],["え","e"],["お","o"],["か","ka"],["き","ki"],["く","ku"],["け","ke"],["こ","ko"],["さ","sa"],["し","shi"],["す","su"],["せ","se"],["そ","so"],["た","ta"],["ち","chi"],["つ","tsu"],["て","te"],["と","to"],["な","na"],["に","ni"],["ぬ","nu"],["ね","ne"],["の","no"],["は","ha"],["ひ","hi"],["ふ","fu"],["へ","he"],["ほ","ho"],["ま","ma"],["み","mi"],["む","mu"],["め","me"],["も","mo"],["や","ya"],["ゆ","yu"],["よ","yo"],["ら","ra"],["り","ri"],["る","ru"],["れ","re"],["ろ","ro"],["わ","wa"],["を","wo"],["ん","n"],["が","ga"],["ぎ","gi"],["ぐ","gu"],["げ","ge"],["ご","go"],["ざ","za"],["じ","ji"],["ず","zu"],["ぜ","ze"],["ぞ","zo"],["だ","da"],["ぢ","ji"],["づ","zu"],["で","de"],["ど","do"],["ば","ba"],["び","bi"],["ぶ","bu"],["べ","be"],["ぼ","bo"],["ぱ","pa"],["ぴ","pi"],["ぷ","pu"],["ぺ","pe"],["ぽ","po"],["きゃ","kya"],["きゅ","kyu"],["きょ","kyo"],["しゃ","sha"],["しゅ","shu"],["しょ","sho"],["ちゃ","cha"],["ちゅ","chu"],["ちょ","cho"],["にゃ","nya"],["にゅ","nyu"],["にょ","nyo"],["ひゃ","hya"],["ひゅ","hyu"],["ひょ","hyo"],["みゃ","mya"],["みゅ","myu"],["みょ","myo"],["りゃ","rya"],["りゅ","ryu"],["りょ","ryo"],["ぎゃ","gya"],["ぎゅ","gyu"],["ぎょ","gyo"],["じゃ","ja"],["じゅ","ju"],["じょ","jo"],["びゃ","bya"],["びゅ","byu"],["びょ","byo"],["ぴゃ","pya"],["ぴゅ","pyu"],["ぴょ","pyo"],["っ","small tsu"],["ー","long vowel mark"]];
-const KATAKANA = [["ア","a"],["イ","i"],["ウ","u"],["エ","e"],["オ","o"],["カ","ka"],["キ","ki"],["ク","ku"],["ケ","ke"],["コ","ko"],["サ","sa"],["シ","shi"],["ス","su"],["セ","se"],["ソ","so"],["タ","ta"],["チ","chi"],["ツ","tsu"],["テ","te"],["ト","to"],["ナ","na"],["ニ","ni"],["ヌ","nu"],["ネ","ne"],["ノ","no"],["ハ","ha"],["ヒ","hi"],["フ","fu"],["ヘ","he"],["ホ","ho"],["マ","ma"],["ミ","mi"],["ム","mu"],["メ","me"],["モ","mo"],["ヤ","ya"],["ユ","yu"],["ヨ","yo"],["ラ","ra"],["リ","ri"],["ル","ru"],["レ","re"],["ロ","ro"],["ワ","wa"],["ヲ","wo"],["ン","n"],["ガ","ga"],["ギ","gi"],["グ","gu"],["ゲ","ge"],["ゴ","go"],["ザ","za"],["ジ","ji"],["ズ","zu"],["ゼ","ze"],["ゾ","zo"],["ダ","da"],["ヂ","ji"],["ヅ","zu"],["デ","de"],["ド","do"],["バ","ba"],["ビ","bi"],["ブ","bu"],["ベ","be"],["ボ","bo"],["パ","pa"],["ピ","pi"],["プ","pu"],["ペ","pe"],["ポ","po"],["キャ","kya"],["キュ","kyu"],["キョ","kyo"],["シャ","sha"],["シュ","shu"],["ショ","sho"],["チャ","cha"],["チュ","chu"],["チョ","cho"],["ニャ","nya"],["ニュ","nyu"],["ニョ","nyo"],["ヒャ","hya"],["ヒュ","hyu"],["ヒョ","hyo"],["ミャ","mya"],["ミュ","myu"],["ミョ","myo"],["リャ","rya"],["リュ","ryu"],["リョ","ryo"],["ギャ","gya"],["ギュ","gyu"],["ギョ","gyo"],["ジャ","ja"],["ジュ","ju"],["ジョ","jo"],["ビャ","bya"],["ビュ","byu"],["ビョ","byo"],["ピャ","pya"],["ピュ","pyu"],["ピョ","pyo"],["ッ","small tsu"],["ー","long vowel mark"]];
-const VOCAB = [["私","わたし","saya","Dasar","N5"],["あなた","あなた","kamu","Dasar","N5"],["人","ひと","orang","Dasar","N5"],["先生","せんせい","guru","Sekolah","N5"],["学生","がくせい","siswa/mahasiswa","Sekolah","N5"],["会社員","かいしゃいん","karyawan","Pekerjaan","N5"],["友達","ともだち","teman","Sosial","N5"],["家族","かぞく","keluarga","Sosial","N5"],["父","ちち","ayah (sendiri)","Keluarga","N5"],["母","はは","ibu (sendiri)","Keluarga","N5"],["兄","あに","kakak laki-laki","Keluarga","N5"],["姉","あね","kakak perempuan","Keluarga","N5"],["弟","おとうと","adik laki-laki","Keluarga","N5"],["妹","いもうと","adik perempuan","Keluarga","N5"],["子供","こども","anak","Keluarga","N5"],["名前","なまえ","nama","Dasar","N5"],["日本","にほん","Jepang","Tempat","N5"],["国","くに","negara","Tempat","N5"],["学校","がっこう","sekolah","Sekolah","N5"],["大学","だいがく","universitas","Sekolah","N5"],["会社","かいしゃ","perusahaan","Pekerjaan","N5"],["店","みせ","toko","Tempat","N5"],["家","いえ","rumah","Tempat","N5"],["部屋","へや","kamar","Tempat","N5"],["駅","えき","stasiun","Tempat","N5"],["病院","びょういん","rumah sakit","Tempat","N5"],["銀行","ぎんこう","bank","Tempat","N5"],["図書館","としょかん","perpustakaan","Tempat","N5"],["公園","こうえん","taman","Tempat","N5"],["時間","じかん","waktu/jam","Waktu","N5"],["今日","きょう","hari ini","Waktu","N5"],["明日","あした","besok","Waktu","N5"],["昨日","きのう","kemarin","Waktu","N5"],["朝","あさ","pagi","Waktu","N5"],["昼","ひる","siang","Waktu","N5"],["夜","よる","malam","Waktu","N5"],["今","いま","sekarang","Waktu","N5"],["毎日","まいにち","setiap hari","Waktu","N5"],["月曜日","げつようび","Senin","Waktu","N5"],["火曜日","かようび","Selasa","Waktu","N5"],["水曜日","すいようび","Rabu","Waktu","N5"],["木曜日","もくようび","Kamis","Waktu","N5"],["金曜日","きんようび","Jumat","Waktu","N5"],["土曜日","どようび","Sabtu","Waktu","N5"],["日曜日","にちようび","Minggu","Waktu","N5"],["一","いち","satu","Angka","N5"],["二","に","dua","Angka","N5"],["三","さん","tiga","Angka","N5"],["四","よん","empat","Angka","N5"],["五","ご","lima","Angka","N5"],["六","ろく","enam","Angka","N5"],["七","なな","tujuh","Angka","N5"],["八","はち","delapan","Angka","N5"],["九","きゅう","sembilan","Angka","N5"],["十","じゅう","sepuluh","Angka","N5"],["百","ひゃく","seratus","Angka","N5"],["千","せん","seribu","Angka","N5"],["万","まん","sepuluh ribu","Angka","N5"],["円","えん","yen","Angka","N5"],["食べる","たべる","makan","Kata kerja","N5"],["飲む","のむ","minum","Kata kerja","N5"],["見る","みる","melihat/menonton","Kata kerja","N5"],["聞く","きく","mendengar/bertanya","Kata kerja","N5"],["読む","よむ","membaca","Kata kerja","N5"],["書く","かく","menulis","Kata kerja","N5"],["話す","はなす","berbicara","Kata kerja","N5"],["行く","いく","pergi","Kata kerja","N5"],["来る","くる","datang","Kata kerja","N5"],["帰る","かえる","pulang","Kata kerja","N5"],["買う","かう","membeli","Kata kerja","N5"],["会う","あう","bertemu","Kata kerja","N5"],["使う","つかう","menggunakan","Kata kerja","N5"],["する","する","melakukan","Kata kerja","N5"],["ある","ある","ada (benda)","Kata kerja","N5"],["いる","いる","ada (makhluk hidup)","Kata kerja","N5"],["寝る","ねる","tidur","Kata kerja","N5"],["起きる","おきる","bangun","Kata kerja","N5"],["働く","はたらく","bekerja","Kata kerja","N5"],["勉強する","べんきょうする","belajar","Kata kerja","N5"],["好き","すき","suka","Sifat","N5"],["嫌い","きらい","tidak suka","Sifat","N5"],["大きい","おおきい","besar","Sifat","N5"],["小さい","ちいさい","kecil","Sifat","N5"],["新しい","あたらしい","baru","Sifat","N5"],["古い","ふるい","lama/tua","Sifat","N5"],["高い","たかい","tinggi/mahal","Sifat","N5"],["安い","やすい","murah","Sifat","N5"],["暑い","あつい","panas (cuaca)","Sifat","N5"],["寒い","さむい","dingin","Sifat","N5"],["美味しい","おいしい","enak","Sifat","N5"],["忙しい","いそがしい","sibuk","Sifat","N5"],["楽しい","たのしい","menyenangkan","Sifat","N5"],["難しい","むずかしい","sulit","Sifat","N5"],["簡単","かんたん","mudah/sederhana","Sifat","N5"],["元気","げんき","sehat/bersemangat","Sifat","N5"],["静か","しずか","tenang","Sifat","N5"],["きれい","きれい","indah/bersih","Sifat","N5"],["便利","べんり","praktis","Sifat","N5"],["料理","りょうり","masakan/memasak","Makanan","N5"],["ご飯","ごはん","nasi/makanan","Makanan","N5"],["水","みず","air","Makanan","N5"],["お茶","おちゃ","teh","Makanan","N5"],["肉","にく","daging","Makanan","N5"],["魚","さかな","ikan","Makanan","N5"],["野菜","やさい","sayur","Makanan","N5"],["果物","くだもの","buah","Makanan","N5"],["朝ご飯","あさごはん","sarapan","Makanan","N5"],["昼ご飯","ひるごはん","makan siang","Makanan","N5"],["晩ご飯","ばんごはん","makan malam","Makanan","N5"],["天気","てんき","cuaca","Alam","N5"],["雨","あめ","hujan","Alam","N5"],["雪","ゆき","salju","Alam","N5"],["風","かぜ","angin","Alam","N5"],["山","やま","gunung","Alam","N5"],["川","かわ","sungai","Alam","N5"],["海","うみ","laut","Alam","N5"],["車","くるま","mobil","Transportasi","N5"],["電車","でんしゃ","kereta","Transportasi","N5"],["自転車","じてんしゃ","sepeda","Transportasi","N5"],["飛行機","ひこうき","pesawat","Transportasi","N5"],["右","みぎ","kanan","Arah","N5"],["左","ひだり","kiri","Arah","N5"],["上","うえ","atas","Arah","N5"],["下","した","bawah","Arah","N5"],["前","まえ","depan/sebelum","Arah","N5"],["後ろ","うしろ","belakang","Arah","N5"],["中","なか","dalam/tengah","Arah","N5"],["外","そと","luar","Arah","N5"],["近い","ちかい","dekat","Arah","N5"],["遠い","とおい","jauh","Arah","N5"],["一緒に","いっしょに","bersama","Sosial","N5"],["少し","すこし","sedikit","Keterangan","N5"],["たくさん","たくさん","banyak","Keterangan","N5"],["とても","とても","sangat","Keterangan","N5"],["もう","もう","sudah","Keterangan","N5"],["まだ","まだ","masih/belum","Keterangan","N5"],["いつも","いつも","selalu","Keterangan","N5"],["よく","よく","sering/dengan baik","Keterangan","N5"],["たぶん","たぶん","mungkin","Keterangan","N4"],["最近","さいきん","akhir-akhir ini","Waktu","N4"],["予定","よてい","rencana/jadwal","Kehidupan","N4"],["約束","やくそく","janji","Sosial","N4"],["必要","ひつよう","perlu","Kehidupan","N4"],["大切","たいせつ","penting/berharga","Sifat","N4"],["安全","あんぜん","aman","Sifat","N4"],["危険","きけん","berbahaya","Sifat","N4"],["便利","べんり","praktis","Sifat","N4"],["経験","けいけん","pengalaman","Kehidupan","N4"],["生活","せいかつ","kehidupan","Kehidupan","N4"],["仕事","しごと","pekerjaan","Pekerjaan","N4"],["意味","いみ","arti/makna","Bahasa","N4"],["問題","もんだい","masalah/soal","Sekolah","N4"],["質問","しつもん","pertanyaan","Sekolah","N4"],["答え","こたえ","jawaban","Sekolah","N4"],["説明","せつめい","penjelasan","Bahasa","N4"],["練習","れんしゅう","latihan","Sekolah","N4"],["試験","しけん","ujian","Sekolah","N4"],["宿題","しゅくだい","PR","Sekolah","N4"],["旅行","りょこう","perjalanan","Kehidupan","N4"],["電気","でんき","listrik","Rumah","N4"],["電池","でんち","baterai","Rumah","N4"],["住所","じゅうしょ","alamat","Kehidupan","N4"],["場合","ばあい","situasi/kasus","Abstrak","N4"],["理由","りゆう","alasan","Abstrak","N4"],["方法","ほうほう","cara/metode","Abstrak","N4"],["気持ち","きもち","perasaan","Abstrak","N4"],["考える","かんがえる","berpikir","Kata kerja","N4"],["知る","しる","mengetahui","Kata kerja","N4"],["忘れる","わすれる","lupa","Kata kerja","N4"],["覚える","おぼえる","mengingat","Kata kerja","N4"],["始める","はじめる","memulai","Kata kerja","N4"],["終わる","おわる","selesai","Kata kerja","N4"],["続ける","つづける","melanjutkan","Kata kerja","N4"],["決める","きめる","memutuskan","Kata kerja","N4"],["選ぶ","えらぶ","memilih","Kata kerja","N4"],["変える","かえる","mengubah","Kata kerja","N4"],["作る","つくる","membuat","Kata kerja","N4"],["持つ","もつ","membawa/memiliki","Kata kerja","N4"],["置く","おく","meletakkan","Kata kerja","N4"],["送る","おくる","mengirim","Kata kerja","N4"],["借りる","かりる","meminjam","Kata kerja","N4"],["貸す","かす","meminjamkan","Kata kerja","N4"],["返す","かえす","mengembalikan","Kata kerja","N4"],["乗る","のる","naik kendaraan","Transportasi","N4"],["降りる","おりる","turun kendaraan","Transportasi","N4"],["着く","つく","tiba","Transportasi","N4"],["始まる","はじまる","dimulai","Kata kerja","N4"],["間に合う","まにあう","tepat waktu","Kata kerja","N4"],["急ぐ","いそぐ","bergegas","Kata kerja","N4"],["気をつける","きをつける","berhati-hati","Kata kerja","N4"],["洗う","あらう","mencuci","Kata kerja","N4"],["料理する","りょうりする","memasak","Kata kerja","N4"],["掃除する","そうじする","membersihkan","Kata kerja","N4"],["散歩する","さんぽする","berjalan-jalan","Kata kerja","N4"],["運動する","うんどうする","berolahraga","Kata kerja","N4"],["若い","わかい","muda","Sifat","N4"],["強い","つよい","kuat","Sifat","N4"],["弱い","よわい","lemah","Sifat","N4"],["早い","はやい","cepat/awal","Sifat","N4"],["遅い","おそい","lambat/terlambat","Sifat","N4"],["明るい","あかるい","terang/ceria","Sifat","N4"],["暗い","くらい","gelap","Sifat","N4"],["重い","おもい","berat","Sifat","N4"],["軽い","かるい","ringan","Sifat","N4"],["暖かい","あたたかい","hangat","Sifat","N4"],["涼しい","すずしい","sejuk","Sifat","N4"],["甘い","あまい","manis","Sifat","N4"],["辛い","からい","pedas","Sifat","N4"],["特別","とくべつ","khusus","Sifat","N4"],["有名","ゆうめい","terkenal","Sifat","N4"],["必要","ひつよう","diperlukan","Sifat","N4"],["同じ","おなじ","sama","Sifat","N4"],["多い","おおい","banyak","Sifat","N4"],["少ない","すくない","sedikit (jumlah)","Sifat","N4"],["大丈夫","だいじょうぶ","tidak apa-apa","Sifat","N4"],["全部","ぜんぶ","semua","Keterangan","N4"],["特に","とくに","terutama","Keterangan","N4"],["例えば","たとえば","misalnya","Keterangan","N4"],["もちろん","もちろん","tentu saja","Keterangan","N4"],["もし","もし","jika/seandainya","Keterangan","N4"],["ぜひ","ぜひ","pasti/sangat ingin","Keterangan","N4"]];
-const GRAMMAR = [["N5","です / じゃありません","です menyatakan identitas/keadaan secara sopan; じゃありません bentuk negatif.","学生です。","Saya adalah pelajar."],["N5","は + topik","Menandai topik kalimat.","私はファリドです。","Saya Farid."],["N5","も","Berarti 'juga'.","私も学生です。","Saya juga pelajar."],["N5","の","Menyatakan kepunyaan/relasi.","これは私の本です。","Ini buku saya."],["N5","これ・それ・あれ","Kata tunjuk: ini/dekat lawan bicara/itu jauh.","これは何ですか。","Ini apa?"],["N5","この・その・あの + N","Kata tunjuk yang langsung menerangkan benda.","この本は新しいです。","Buku ini baru."],["N5","ここ・そこ・あそこ","Menunjukkan tempat.","駅はここです。","Stasiunnya di sini."],["N5","は + が好きです","Menyatakan suka.","日本語が好きです。","Saya suka bahasa Jepang."],["N5","を + objek","Menandai objek langsung.","ご飯を食べます。","Saya makan."],["N5","に + waktu","Menandai waktu tertentu.","七時に起きます。","Saya bangun jam tujuh."],["N5","へ / に + tujuan","Menandai arah/tujuan.","学校へ行きます。","Pergi ke sekolah."],["N5","で + tempat","Tempat berlangsungnya aktivitas.","図書館で勉強します。","Belajar di perpustakaan."],["N5","と + bersama","Menunjukkan melakukan sesuatu bersama seseorang.","友達と行きます。","Saya pergi dengan teman."],["N5","から / まで","Dari / sampai.","九時から五時まで働きます。","Bekerja dari jam 9 sampai jam 5."],["N5","あります / います","Keberadaan benda / makhluk hidup.","机があります。猫がいます。","Ada meja. Ada kucing."],["N5","い-adjective","Adjektiva berakhiran い untuk menerangkan sifat.","この車は新しいです。","Mobil ini baru."],["N5","な-adjective + な","Adjektiva な memakai な sebelum kata benda.","静かな町です。","Kota yang tenang."],["N5","い-adjective negatif","Bentuk negatif: ～くないです.","高くないです。","Tidak mahal."],["N5","～ましょう","Ajakan 'mari...'.","一緒に行きましょう。","Mari pergi bersama."],["N5","～ませんか","Ajakan sopan 'maukah...?'.","映画を見ませんか。","Mau menonton film?"],["N5","～たいです","Menyatakan keinginan melakukan sesuatu.","日本へ行きたいです。","Saya ingin pergi ke Jepang."],["N5","てください","Permintaan sopan 'tolong...'.","見てください。","Tolong lihat."],["N5","～てもいいです","Meminta/memberi izin.","ここで写真を撮ってもいいです。","Boleh mengambil foto di sini."],["N5","～てはいけません","Larangan.","ここで食べてはいけません。","Tidak boleh makan di sini."],["N5","～ています","Sedang melakukan / keadaan yang sedang berlangsung.","今勉強しています。","Sekarang sedang belajar."],["N5","～てから","Setelah melakukan A, lalu B.","ご飯を食べてから勉強します。","Setelah makan, saya belajar."],["N5","～ないでください","Tolong jangan....","忘れないでください。","Tolong jangan lupa."],["N5","～まえに","Sebelum....","寝る前に本を読みます。","Membaca buku sebelum tidur."],["N5","～あとで","Setelah....","仕事のあとで帰ります。","Pulang setelah bekerja."],["N5","から","Menyatakan alasan 'karena'.","忙しいから行きません。","Karena sibuk, saya tidak pergi."],["N4","普通形 (plain form)","Bentuk kasual yang menjadi dasar banyak pola N4.","明日行くと思います。","Saya pikir besok pergi."],["N4","～と思います","Menyatakan opini/pikiran.","日本語は難しいと思います。","Saya pikir bahasa Jepang sulit."],["N4","～と言います","Mengutip perkataan.","先生は明日テストがあると言いました。","Guru berkata besok ada ujian."],["N4","～かもしれません","Kemungkinan 'mungkin'.","明日は雨かもしれません。","Besok mungkin hujan."],["N4","～でしょう","Perkiraan/konfirmasi lembut.","明日は暑いでしょう。","Besok mungkin panas."],["N4","～なければなりません","Kewajiban 'harus'.","勉強しなければなりません。","Harus belajar."],["N4","～なくてもいいです","Tidak perlu / tidak harus.","急がなくてもいいです。","Tidak perlu terburu-buru."],["N4","～たことがあります","Pernah mengalami/melakukan.","日本へ行ったことがあります。","Pernah pergi ke Jepang."],["N4","～たり～たりします","Memberi contoh beberapa aktivitas.","映画を見たり、本を読んだりします。","Menonton film, membaca buku, dll."],["N4","～ながら","Melakukan dua hal bersamaan.","音楽を聞きながら勉強します。","Belajar sambil mendengarkan musik."],["N4","～そうです (appearance)","Kelihatannya/sepertinya berdasarkan tampilan.","おいしそうです。","Kelihatannya enak."],["N4","～そうです (hearsay)","Katanya / kabarnya.","明日は雨だそうです。","Katanya besok hujan."],["N4","～すぎます","Terlalu....","食べすぎました。","Saya makan terlalu banyak."],["N4","～やすい / ～にくい","Mudah/sulit untuk dilakukan.","この本は読みやすいです。","Buku ini mudah dibaca."],["N4","～ようになります","Menjadi bisa / mulai mengalami perubahan kebiasaan.","日本語が話せるようになりました。","Saya jadi bisa berbicara bahasa Jepang."],["N4","～ようにします","Berusaha membiasakan diri agar....","毎日勉強するようにします。","Saya akan berusaha belajar setiap hari."],["N4","～ために","Untuk/demi tujuan....","日本で働くために日本語を勉強します。","Belajar Jepang untuk bekerja di Jepang."],["N4","～なら","Kalau mengenai / jika....","日本へ行くなら、東京がいいです。","Kalau ke Jepang, Tokyo bagus."],["N4","～たら","Jika/ketika setelah kondisi terjadi.","時間があったら行きます。","Kalau ada waktu, saya pergi."],["N4","～ても","Walaupun/meskipun.","雨が降っても行きます。","Walaupun hujan, saya pergi."],["N4","～ので","Karena/sebab dengan nuansa lebih halus.","用事があるので帰ります。","Saya pulang karena ada urusan."],["N4","～のに","Padahal/meskipun.","勉強したのに、忘れました。","Padahal sudah belajar, saya lupa."],["N4","～かどうか","Apakah... atau tidak.","来るかどうかわかりません。","Saya tidak tahu apakah dia datang."],["N4","～し～し","Memberi beberapa alasan/alasan tambahan.","安いし、便利です。","Murah dan juga praktis."],["N4","～によると","Menurut sumber....","ニュースによると、雨だそうです。","Menurut berita, katanya hujan."],["N4","～間に","Selama ketika....","日本にいる間に旅行したいです。","Selama di Jepang, saya ingin bepergian."],["N4","～場合は","Dalam kasus/ketika....","病気の場合は休んでください。","Jika sakit, silakan istirahat."],["N4","～てもらいます","Menerima bantuan/perbuatan dari orang lain.","先生に教えてもらいました。","Saya diajari guru."],["N4","～てあげます","Melakukan sesuatu untuk orang lain.","友達に日本語を教えてあげます。","Saya mengajari teman bahasa Jepang."],["N4","～てくれます","Orang lain melakukan sesuatu untuk saya.","友達が手伝ってくれました。","Teman membantu saya."]];
-const KANJI = [["一","いち / ひと(つ)","satu","一つ（ひとつ）"],["二","に / ふた(つ)","dua","二つ（ふたつ）"],["三","さん / みっ(つ)","tiga","三つ（みっつ）"],["四","し / よん / よっ(つ)","empat","四つ（よっつ）"],["五","ご / いつ(つ)","lima","五つ（いつつ）"],["六","ろく / むっ(つ)","enam","六つ（むっつ）"],["七","しち / なな(つ)","tujuh","七つ（ななつ）"],["八","はち / やっ(つ)","delapan","八つ（やっつ）"],["九","きゅう / ここの(つ)","sembilan","九つ（ここのつ）"],["十","じゅう / とお","sepuluh","十人（じゅうにん）"],["百","ひゃく","seratus","百円（ひゃくえん）"],["千","せん","seribu","千円（せんえん）"],["万","まん","sepuluh ribu","一万円（いちまんえん）"],["円","えん","yen","円"],["日","にち / ひ / か","hari/matahari","日本（にほん）"],["月","げつ / つき","bulan","月曜日（げつようび）"],["火","か / ひ","api","火曜日（かようび）"],["水","すい / みず","air","水曜日（すいようび）"],["木","もく / き","pohon/kayu","木曜日（もくようび）"],["金","きん / かね","emas/uang","金曜日（きんようび）"],["土","ど / つち","tanah","土曜日（どようび）"],["年","ねん / とし","tahun","今年（ことし）"],["時","じ / とき","waktu/jam","時間（じかん）"],["分","ぶん / ふん / わ(ける)","menit/bagian","五分（ごふん）"],["半","はん","setengah","半分（はんぶん）"],["今","こん / いま","sekarang","今日（きょう）"],["毎","まい","setiap","毎日（まいにち）"],["週","しゅう","minggu","毎週（まいしゅう）"],["人","じん / にん / ひと","orang","日本人（にほんじん）"],["男","だん / おとこ","laki-laki","男の人（おとこのひと）"],["女","じょ / おんな","perempuan","女の人（おんなのひと）"],["子","し / こ","anak","子供（こども）"],["父","ふ / ちち","ayah","父（ちち）"],["母","ぼ / はは","ibu","母（はは）"],["友","ゆう / とも","teman","友達（ともだち）"],["名","めい / な","nama","名前（なまえ）"],["先","せん / さき","sebelum/depan","先生（せんせい）"],["生","せい / しょう / い(きる)","hidup/kelahiran","学生（がくせい）"],["学","がく / まな(ぶ)","belajar","学校（がっこう）"],["校","こう","sekolah","学校（がっこう）"],["本","ほん / もと","buku/asli","本（ほん）"],["語","ご / かた(る)","bahasa","日本語（にほんご）"],["文","ぶん / ふみ","kalimat/tulisan","文（ぶん）"],["字","じ / あざ","huruf","漢字（かんじ）"],["読","どく / よ(む)","membaca","読む（よむ）"],["書","しょ / か(く)","menulis","書く（かく）"],["聞","ぶん / き(く)","mendengar/bertanya","聞く（きく）"],["話","わ / はな(す)","bicara","話す（はなす）"],["見","けん / み(る)","melihat","見る（みる）"],["行","こう / い(く) / おこな(う)","pergi","行く（いく）"],["来","らい / く(る)","datang","来る（くる）"],["帰","き / かえ(る)","pulang","帰る（かえる）"],["食","しょく / た(べる)","makan","食べる（たべる）"],["飲","いん / の(む)","minum","飲む（のむ）"],["買","ばい / か(う)","membeli","買う（かう）"],["車","しゃ / くるま","kendaraan","電車（でんしゃ）"],["電","でん","listrik","電気（でんき）"],["駅","えき","stasiun","駅（えき）"],["道","どう / みち","jalan","道（みち）"],["店","てん / みせ","toko","店（みせ）"],["家","か / いえ","rumah","家（いえ）"],["室","しつ / むろ","ruangan","教室（きょうしつ）"],["部","ぶ","bagian","部屋（へや）"],["屋","おく / や","bangunan/toko","部屋（へや）"],["上","じょう / うえ / あ(げる)","atas","上（うえ）"],["下","か / した / さ(げる)","bawah","下（した）"],["中","ちゅう / なか","tengah/dalam","中（なか）"],["外","がい / そと","luar","外国（がいこく）"],["右","う / みぎ","kanan","右（みぎ）"],["左","さ / ひだり","kiri","左（ひだり）"],["前","ぜん / まえ","depan/sebelum","名前（なまえ）"],["後","ご / こう / あと","belakang/setelah","後ろ（うしろ）"],["東","とう / ひがし","timur","東京（とうきょう）"],["西","せい / にし","barat","西（にし）"],["南","なん / みなみ","selatan","南（みなみ）"],["北","ほく / きた","utara","北（きた）"],["国","こく / くに","negara","外国（がいこく）"],["山","さん / やま","gunung","山（やま）"],["川","せん / かわ","sungai","川（かわ）"],["海","かい / うみ","laut","海（うみ）"],["天","てん","langit","天気（てんき）"],["気","き / け","energi/perasaan","元気（げんき）"],["雨","う / あめ","hujan","雨（あめ）"],["雪","せつ / ゆき","salju","雪（ゆき）"],["白","はく / しろ(い)","putih","白い（しろい）"],["赤","せき / あか(い)","merah","赤い（あかい）"],["青","せい / あお(い)","biru","青い（あおい）"],["黒","こく / くろ(い)","hitam","黒い（くろい）"],["大","だい / おお(きい)","besar","大きい（おおきい）"],["小","しょう / ちい(さい)","kecil","小さい（ちいさい）"],["高","こう / たか(い)","tinggi/mahal","高い（たかい）"],["安","あん / やす(い)","murah/aman","安い（やすい）"],["新","しん / あたら(しい)","baru","新しい（あたらしい）"],["古","こ / ふる(い)","lama/tua","古い（ふるい）"],["長","ちょう / なが(い)","panjang","長い（ながい）"],["多","た / おお(い)","banyak","多い（おおい）"],["少","しょう / すく(ない)","sedikit","少ない（すくない）"],["早","そう / はや(い)","awal/cepat","早い（はやい）"],["明","めい / あか(るい)","terang","明るい（あかるい）"],["休","きゅう / やす(む)","istirahat","休む（やすむ）"],["住","じゅう / す(む)","tinggal","住む（すむ）"],["働","どう / はたら(く)","bekerja","働く（はたらく）"],["作","さく / つく(る)","membuat","作る（つくる）"],["使","し / つか(う)","menggunakan","使う（つかう）"],["持","じ / も(つ)","memegang/membawa","持つ（もつ）"],["立","りつ / た(つ)","berdiri","立つ（たつ）"],["座","ざ / すわ(る)","duduk","座る（すわる）"],["歩","ほ / ある(く)","berjalan","歩く（あるく）"],["走","そう / はし(る)","berlari","走る（はしる）"],["入","にゅう / はい(る) / い(れる)","masuk/memasukkan","入る（はいる）"],["出","しゅつ / で(る) / だ(す)","keluar/mengeluarkan","出る（でる）"],["開","かい / あ(く) / ひら(く)","membuka","開ける（あける）"],["閉","へい / し(める) / と(じる)","menutup","閉める（しめる）"],["始","し / はじ(める)","mulai","始める（はじめる）"],["終","しゅう / お(わる)","selesai","終わる（おわる）"],["間","かん / あいだ","interval/antara","時間（じかん）"],["近","きん / ちか(い)","dekat","近い（ちかい）"],["遠","えん / とお(い)","jauh","遠い（とおい）"],["同","どう / おな(じ)","sama","同じ（おなじ）"],["別","べつ / わか(れる)","berbeda/terpisah","別々（べつべつ）"],["方","ほう / かた","arah/cara","方法（ほうほう）"],["思","し / おも(う)","berpikir","思う（おもう）"],["考","こう / かんが(える)","memikirkan","考える（かんがえる）"],["知","ち / し(る)","tahu","知る（しる）"],["忘","ぼう / わす(れる)","lupa","忘れる（わすれる）"],["覚","かく / おぼ(える)","mengingat","覚える（おぼえる）"],["教","きょう / おし(える)","mengajar","教える（おしえる）"],["習","しゅう / なら(う)","belajar","習う（ならう）"],["試","し / ため(す)","menguji","試験（しけん）"],["験","けん","ujian/pengalaman","試験（しけん）"],["問","もん / と(う)","pertanyaan","問題（もんだい）"],["題","だい","topik/soal","問題（もんだい）"],["答","とう / こた(える)","jawaban","答え（こたえ）"],["理","り","alasan/logika","理由（りゆう）"],["由","ゆう / ゆ","alasan","理由（りゆう）"],["意","い","maksud","意味（いみ）"],["味","み / あじ","rasa/makna","意味（いみ）"],["用","よう / もち(いる)","kegunaan","用事（ようじ）"],["事","じ / こと","hal/urusan","仕事（しごと）"],["仕","し","melakukan/layanan","仕事（しごと）"],["体","たい / からだ","tubuh","体（からだ）"],["心","しん / こころ","hati/perasaan","心（こころ）"],["元","げん / もと","asal/energi","元気（げんき）"],["病","びょう / やまい","sakit","病院（びょういん）"],["院","いん","institusi","病院（びょういん）"],["薬","やく / くすり","obat","薬（くすり）"],["映","えい / うつ(る)","memantulkan/film","映画（えいが）"],["画","がく / が","gambar/film","映画（えいが）"],["音","おん / おと","suara","音楽（おんがく）"],["楽","がく / たの(しい)","menyenangkan/musik","音楽（おんがく）"],["歌","か / うた","lagu","歌（うた）"],["旅","りょ / たび","perjalanan","旅行（りょこう）"],["館","かん","gedung","図書館（としょかん）"],["図","ず / と","gambar/diagram","図書館（としょかん）"],["公","こう","publik","公園（こうえん）"],["園","えん","taman","公園（こうえん）"],["料","りょう","bahan/biaya","料理（りょうり）"],["銀","ぎん","perak","銀行（ぎんこう）"],["場","じょう / ば","tempat","場所（ばしょ）"],["所","しょ / ところ","tempat","場所（ばしょ）"],["世","せい / よ","dunia/generasi","世界（せかい）"],["界","かい","dunia/batas","世界（せかい）"],["結","けつ / むす(ぶ)","mengikat","結婚（けっこん）"],["婚","こん","pernikahan","結婚（けっこん）"],["族","ぞく","kelompok/keluarga","家族（かぞく）"],["親","しん / おや","orang tua/dekat","親（おや）"],["兄","けい / あに","kakak laki-laki","兄（あに）"],["姉","し / あね","kakak perempuan","姉（あね）"],["弟","てい / おとうと","adik laki-laki","弟（おとうと）"],["妹","まい / いもうと","adik perempuan","妹（いもうと）"],["冬","とう / ふゆ","musim dingin","冬（ふゆ）"],["春","しゅん / はる","musim semi","春（はる）"],["夏","か / なつ","musim panas","夏（なつ）"],["秋","しゅう / あき","musim gugur","秋（あき）"],["朝","ちょう / あさ","pagi","朝（あさ）"],["昼","ちゅう / ひる","siang","昼（ひる）"],["夜","や / よる","malam","夜（よる）"],["夕","ゆう","sore","夕方（ゆうがた）"],["以","い","sejak/lebih dari","以上（いじょう）"],["以外","いがい","selain","以外（いがい）"],["必要","ひつよう","perlu","必要（ひつよう）"],["経験","けいけん","pengalaman","経験（けいけん）"],["変","へん / か(える)","berubah","変更（へんこう）"],["化","か","perubahan","文化（ぶんか）"],["社","しゃ / やしろ","perusahaan/kuil","会社（かいしゃ）"],["員","いん","anggota/karyawan","会社員（かいしゃいん）"],["業","ぎょう / わざ","pekerjaan/industri","授業（じゅぎょう）"],["授","じゅ","mengajar/memberi","授業（じゅぎょう）"],["研","けん","riset","研究（けんきゅう）"],["究","きゅう","menyelidiki","研究（けんきゅう）"],["計","けい / はか(る)","menghitung","時計（とけい）"],["度","ど","derajat/kali","一度（いちど）"],["回","かい / まわ(る)","kali/putaran","一回（いっかい）"],["番","ばん","nomor/giliran","番号（ばんごう）"],["号","ごう","nomor","番号（ばんごう）"],["発","はつ","berangkat/terbit","出発（しゅっぱつ）"],["着","ちゃく / つ(く)","tiba/memakai","到着（とうちゃく）"],["通","つう / とお(る)","melewati/komuter","通る（とおる）"],["送","そう / おく(る)","mengirim","送る（おくる）"],["借","しゃく / か(りる)","meminjam","借りる（かりる）"],["貸","たい / か(す)","meminjamkan","貸す（かす）"],["返","へん / かえ(す)","mengembalikan","返す（かえす）"],["集","しゅう / あつ(める)","mengumpulkan","集める（あつめる）"],["選","せん / えら(ぶ)","memilih","選ぶ（えらぶ）"],["決","けつ / き(める)","memutuskan","決める（きめる）"],["定","てい / さだ(める)","menetapkan","予定（よてい）"],["予","よ","sebelum/prediksi","予定（よてい）"],["約","やく","janji/kira-kira","約束（やくそく）"],["束","そく / たば","mengikat/bundel","約束（やくそく）"],["全","ぜん / すべ(て)","seluruh","全部（ぜんぶ）"],["特","とく","khusus","特別（とくべつ）"],["便","べん / たよ(り)","kemudahan/surat","便利（べんり）"],["利","り","manfaat","便利（べんり）"],["危","き / あぶ(ない)","bahaya","危険（きけん）"],["険","けん","berbahaya","危険（きけん）"],["最","さい / もっと(も)","paling","最近（さいきん）"],["私","し / わたし","saya","私（わたし）"],["連","れん / つ(れる)","menghubungkan","連絡（れんらく）"],["絡","らく / から(む)","terhubung","連絡（れんらく）"],["相","そう / あい","saling","相談（そうだん）"],["談","だん","berbicara","相談（そうだん）"],["説","せつ / と(く)","menjelaskan","説明（せつめい）"],["質","しつ","kualitas/pertanyaan","質問（しつもん）"],["合","ごう / あ(う)","cocok/gabung","場合（ばあい）"],["活","かつ","hidup/aktif","生活（せいかつ）"],["役","やく","peran","役に立つ（やくにたつ）"]];
-const ROADMAP = [["start","START","Orientasi & cara belajar","Dasar penggunaan website, romaji, pelafalan, dan target belajar.","home"],["hira","Hiragana","Hiragana lengkap","Gojuuon, dakuten, handakuten, youon, っ dan latihan membaca.","hiragana"],["kata","Katakana","Katakana lengkap","Gojuuon, dakuten, handakuten, youon, kata serapan, dan latihan.","katakana"],["n5v","N5","Kosakata & ekspresi N5","Kosakata inti kehidupan sehari-hari dan ekspresi dasar.","vocab"],["n5g","N5","Tata bahasa N5","Partikel, bentuk sopan, kata sifat, te-form, keinginan, izin, larangan.","grammar"],["n5k","N5","Kanji dasar N5","Kanji angka, waktu, tempat, keluarga, aktivitas, arah, dan lainnya.","kanji"],["n4v","N4","Kosakata N4","Kosakata yang memperluas kemampuan membaca dan percakapan.","vocab"],["n4g","N4","Tata bahasa N4","Plain form, pengalaman, dugaan, kewajiban, kondisi, tujuan, perubahan, dan sebab.","grammar"],["n4k","N4","Kanji N4","Kanji lanjutan untuk teks sederhana dan konteks sehari-hari.","kanji"],["review","FINAL","Review & simulasi","Ulangi materi yang belum dikuasai dan gunakan pencarian/latihan untuk review.","practice"]];
-
-const state = JSON.parse(localStorage.getItem('nihongoPathState') || '{"modules":{},"vocab":{},"kanji":{},"theme":"light"}');
-state.mistakes = state.mistakes || {vocab:{},kanji:{},grammar:{}};
-state.badges = state.badges || {};
-state.streak = state.streak || {count:0,last:''};
-function save(){localStorage.setItem('nihongoPathState',JSON.stringify(state));updateStats();}
-function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1600)}
-
-function spawnPetals(n){
-  const box=document.getElementById('petals'); if(!box) return;
-  for(let i=0;i<n;i++){
-    const p=document.createElement('span'); p.className='petal'; p.textContent=Math.random()>.5?'🌸':'🍃';
-    p.style.left=(Math.random()*100)+'vw';
-    p.style.setProperty('--drift',(Math.random()*120-60)+'px');
-    p.style.animationDuration=(3+Math.random()*2.2)+'s';
-    p.style.fontSize=(14+Math.random()*14)+'px';
-    box.appendChild(p);
-    setTimeout(()=>p.remove(),6200);
-  }
-}
-function checkMilestones(){
-  const vocabDone=Object.values(state.vocab).filter(Boolean).length;
-  const kanjiDone=Object.values(state.kanji).filter(Boolean).length;
-  const moduleDone=Object.values(state.modules).filter(Boolean).length;
-  const milestones=[
-    ['vocab25',vocabDone>=25,'25 kosakata dikuasai! 🎉'],
-    ['vocab100',vocabDone>=100,'100 kosakata dikuasai! 🌸'],
-    ['vocab200',vocabDone>=200,'200 kosakata dikuasai! 🏮'],
-    ['kanji25',kanjiDone>=25,'25 kanji dikuasai! 🎉'],
-    ['kanji100',kanjiDone>=100,'100 kanji dikuasai! 🌸'],
-    ['roadmapAll',moduleDone>=10,'Roadmap selesai. Omedetou! 🏮']
-  ];
-  let fired=false;
-  milestones.forEach(([id,cond,msg])=>{
-    if(cond && !state.badges[id]){state.badges[id]=true;toast(msg);fired=true}
-  });
-  if(fired){spawnPetals(28);save();}
-}
-function updateStreak(){
-  const todayStr=new Date().toISOString().slice(0,10);
-  if(state.streak.last!==todayStr){
-    const y=new Date(Date.now()-86400000).toISOString().slice(0,10);
-    state.streak.count = state.streak.last===y ? state.streak.count+1 : 1;
-    state.streak.last=todayStr; save();
-  }
-  const el=document.getElementById('streakCount'); if(el) el.textContent=state.streak.count;
-}
-function animateNumber(el,to,suffix){
-  suffix=suffix||''; if(!el) return;
-  const from=parseInt(el.textContent)||0; const dur=650; const start=performance.now();
-  function step(t){
-    const p=Math.min(1,(t-start)/dur); const val=Math.round(from+(to-from)*p);
-    el.textContent=val+suffix;
-    if(p<1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-document.addEventListener('click',e=>{
-  const el=e.target.closest('.btn,.tab');
-  if(!el) return;
-  const rect=el.getBoundingClientRect();
-  const size=Math.max(rect.width,rect.height);
-  const r=document.createElement('span'); r.className='ripple';
-  r.style.width=r.style.height=size+'px';
-  r.style.left=(e.clientX-rect.left-size/2)+'px';
-  r.style.top=(e.clientY-rect.top-size/2)+'px';
-  el.appendChild(r); setTimeout(()=>r.remove(),600);
+document.querySelectorAll('.reveal').forEach((el,i)=>{
+  el.style.animationDelay=(i*.08)+'s';
 });
-function positionPill(){
-  const active=document.querySelector('#navList button.active');
-  const pill=document.getElementById('navPill');
-  if(active && pill){pill.style.transform=`translateY(${active.offsetTop}px)`;pill.style.height=active.offsetHeight+'px';}
-}
-function go(page){
-  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-  const el=document.getElementById('page-'+page)||document.getElementById('page-home');
-  el.classList.add('active');
-  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
-  positionPill();
-  if(page==='vocab') renderVocab(); if(page==='grammar') renderGrammar(); if(page==='kanji') renderKanji();
-  if(page==='roadmap'||page==='home') renderRoadmaps();
-  document.getElementById('sidebar').classList.remove('open');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-window.go=go;
-document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
-window.addEventListener('resize',positionPill);
-document.getElementById('menuBtn').onclick=()=>document.getElementById('sidebar').classList.toggle('open');
-function syncThemeButton(){
-  const btn=document.getElementById('themeBtn');
-  if(!btn)return;
-  const knob=btn.querySelector('.theme-knob span');
-  const dark=state.theme==='dark';
-  btn.setAttribute('aria-label',dark?'Ganti ke mode terang':'Ganti ke mode gelap');
-  btn.setAttribute('title',dark?'Mode terang':'Mode gelap');
-  if(knob)knob.textContent=dark?'☾':'☼';
-}
-function changeTheme(){
-  state.theme=state.theme==='dark'?'light':'dark';
-  document.documentElement.dataset.theme=state.theme;
-  syncThemeButton();
-  save();
-}
-
-document.getElementById('themeBtn').onclick=()=>{
-  const btn=document.getElementById('themeBtn');
-  const r=btn.getBoundingClientRect();
-  const x=((r.left+r.width/2)/innerWidth*100).toFixed(2)+'%';
-  const y=((r.top+r.height/2)/innerHeight*100).toFixed(2)+'%';
-  document.documentElement.style.setProperty('--theme-x',x);
-  document.documentElement.style.setProperty('--theme-y',y);
-
-  if(document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches){
-    document.startViewTransition(()=>changeTheme());
-  }else{
-    changeTheme();
-  }
-};
-document.documentElement.dataset.theme=state.theme;
-syncThemeButton();
-
-function renderRoadmaps(){
-  const make=(target)=>{
-    const box=document.getElementById(target); if(!box)return; box.innerHTML='';
-    ROADMAP.forEach(r=>{
-      const done=!!state.modules[r[0]];
-      const el=document.createElement('div');el.className='card road '+(done?'done':'');
-      el.innerHTML=`<div class="level">${r[1]}</div><h3>${r[2]}</h3><p>${r[3]}</p><div class="check">${done?'✓':'→'}</div>`;
-      el.onclick=()=>{if(r[4]==='home')go('home');else if(r[4]==='practice')go('practice');else go(r[4]);};
-      box.appendChild(el);
-    });
-  };
-  make('homeRoadmap');make('roadmapFull');
-}
-function toggleModule(id){
-  const nowDone=!state.modules[id];
-  state.modules[id]=nowDone; save(); renderRoadmaps();
-  toast(nowDone?'Materi ditandai selesai ✓':'Status materi dibatalkan');
-  updateModuleButtons();
-  if(nowDone) spawnPetals(16);
-  checkMilestones();
-}
-function updateModuleButtons(){
-  const h=document.getElementById('hiraDoneBtn'),k=document.getElementById('kataDoneBtn');
-  if(h)h.textContent=state.modules.hira?'✓ Hiragana selesai':'Tandai Hiragana selesai';
-  if(k)k.textContent=state.modules.kata?'✓ Katakana selesai':'Tandai Katakana selesai';
-}
-window.toggleModule=toggleModule;
-
-function renderKana(list, target, query=''){
-  const box=document.getElementById(target);box.innerHTML='';
-  const q=query.trim().toLowerCase();
-  const arr=list.filter(x=>!q || x[0].toLowerCase().includes(q)||x[1].toLowerCase().includes(q));
-  arr.forEach(x=>{
-    const el=document.createElement('button');el.className='kana';el.innerHTML=`<b>${x[0]}</b><span>${x[1]}</span>`;
-    el.onclick=()=>{speakKana(x[0]);el.classList.add('flip');setTimeout(()=>el.classList.remove('flip'),650);};
-    box.appendChild(el);
-  });
-  if(!arr.length)box.innerHTML='<div class="empty">Tidak ada karakter yang cocok.</div>';
-}
-function speakKana(text){
-  if('speechSynthesis' in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='ja-JP';u.rate=.8;speechSynthesis.speak(u);}
-}
-document.getElementById('hiraSearch').oninput=e=>renderKana(HIRAGANA,'hiraGrid',e.target.value);
-document.getElementById('kataSearch').oninput=e=>renderKana(KATAKANA,'kataGrid',e.target.value);
-renderKana(HIRAGANA,'hiraGrid');renderKana(KATAKANA,'kataGrid');updateModuleButtons();
-
-function renderVocab(){
-  const q=(document.getElementById('vocabSearch').value||'').toLowerCase();
-  const level=document.getElementById('vocabLevel').value;
-  const cat=document.getElementById('vocabCat').value;
-  const body=document.getElementById('vocabBody');body.innerHTML='';
-  const rows=VOCAB.filter(x=>(level==='all'||x[4]===level)&&(cat==='all'||x[3]===cat)&&x.slice(0,4).join(' ').toLowerCase().includes(q));
-  rows.forEach((x,i)=>{
-    const key=x[0]+'|'+x[1]; const done=!!state.vocab[key];
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td><span class="jp">${x[0]}</span></td><td class="reading">${x[1]}</td><td>${x[2]}<div class="reading">${x[3]}</div></td><td>${x[4]}</td><td><button class="know ${done?'done':''}">${done?'✓ Dikuasai':'Belum'}</button></td>`;
-    tr.querySelector('button').onclick=()=>{const nowDone=!state.vocab[key];state.vocab[key]=nowDone;save();renderVocab();if(nowDone)checkMilestones();};
-    body.appendChild(tr);
-  });
-  if(!rows.length)body.innerHTML='<tr><td colspan="5"><div class="empty">Kosakata tidak ditemukan.</div></td></tr>';
-}
-const catSel=document.getElementById('vocabCat');
-[...new Set(VOCAB.map(x=>x[3]))].sort().forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;catSel.appendChild(o)});
-['vocabSearch','vocabLevel','vocabCat'].forEach(id=>document.getElementById(id).addEventListener('input',renderVocab));
-
-function renderGrammar(){
-  const q=(document.getElementById('grammarSearch').value||'').toLowerCase(), level=document.getElementById('grammarLevel').value;
-  const body=document.getElementById('grammarBody');body.innerHTML='';
-  const rows=GRAMMAR.filter(x=>(level==='all'||x[0]===level)&&x.join(' ').toLowerCase().includes(q));
-  rows.forEach(x=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${x[0]}</td><td><span class="jp" style="font-size:16px">${x[1]}</span></td><td>${x[2]}</td><td>${x[3]}</td><td>${x[4]}</td>`;body.appendChild(tr)});
-  if(!rows.length)body.innerHTML='<tr><td colspan="5"><div class="empty">Pola grammar tidak ditemukan.</div></td></tr>';
-}
-['grammarSearch','grammarLevel'].forEach(id=>document.getElementById(id).addEventListener('input',renderGrammar));
-
-function renderKanji(){
-  const q=(document.getElementById('kanjiSearch').value||'').toLowerCase();const body=document.getElementById('kanjiBody');body.innerHTML='';
-  const rows=KANJI.filter(x=>x.join(' ').toLowerCase().includes(q));
-  rows.forEach(x=>{
-    const key=x[0],done=!!state.kanji[key];const tr=document.createElement('tr');
-    tr.innerHTML=`<td><span class="jp" style="font-size:30px">${x[0]}</span></td><td class="reading">${x[1]}</td><td>${x[2]}</td><td>${x[3]}</td><td><button class="know ${done?'done':''}">${done?'✓':'Tandai'}</button></td>`;
-    tr.querySelector('button').onclick=()=>{const nowDone=!state.kanji[key];state.kanji[key]=nowDone;save();renderKanji();if(nowDone)checkMilestones();};
-    body.appendChild(tr);
-  });
-}
-document.getElementById('kanjiSearch').oninput=renderKanji;
-function resetKanji(){if(confirm('Hapus semua progress kanji?')){state.kanji={};save();renderKanji();toast('Progress kanji direset')}}
-window.resetKanji=resetKanji;
-
-let flashIndex=0;
-function renderFlash(){
-  const x=VOCAB[flashIndex%VOCAB.length];
-  const card=document.getElementById('flashCard');
-  if(card){card.classList.remove('turn');void card.offsetWidth;card.classList.add('turn');}
-  document.getElementById('flashWord').textContent=x[0];document.getElementById('flashReading').textContent=x[1];document.getElementById('flashMeaning').textContent=x[2];
-}
-function nextFlash(){flashIndex=(flashIndex+1)%VOCAB.length;renderFlash()}function prevFlash(){flashIndex=(flashIndex-1+VOCAB.length)%VOCAB.length;renderFlash()}
-function speakFlash(){speakKana(VOCAB[flashIndex%VOCAB.length][1])}
-window.nextFlash=nextFlash;window.prevFlash=prevFlash;window.speakFlash=speakFlash;renderFlash();
-
-/* ---- Practice tabs: flashcard / vocab quiz / kanji quiz / grammar quiz / mistake review ---- */
-function poolFor(type){
-  if(type==='vocab') return VOCAB.map(x=>({key:x[0]+'|'+x[1],type:'vocab',prompt:x[0],sub:x[1],answer:x[2]}));
-  if(type==='kanji') return KANJI.map(x=>({key:x[0],type:'kanji',prompt:x[0],sub:x[1],answer:x[2]}));
-  if(type==='grammar') return GRAMMAR.map(x=>({key:x[1]+'|'+x[3],type:'grammar',prompt:x[3],sub:x[0]+' · '+x[1],answer:x[4]}));
-  return [];
-}
-function shuffleArr(a){return [...a].sort(()=>Math.random()-.5)}
-function reviewPool(){
-  const items=[];
-  ['vocab','kanji','grammar'].forEach(type=>{
-    const keys=Object.keys(state.mistakes[type]||{});
-    const pool=poolFor(type);
-    keys.forEach(k=>{const it=pool.find(p=>p.key===k);if(it)items.push(it)});
-  });
-  return shuffleArr(items);
-}
-const quizState={mode:'vocab',pool:[],idx:0,score:0,total:0};
-const quizTitles={vocab:'Kuis Kosakata',kanji:'Kuis Kanji',grammar:'Kuis Grammar',review:'Review Kesalahan'};
-const quizSubs={vocab:'Pilih arti kata yang benar.',kanji:'Pilih arti kanji yang benar.',grammar:'Baca contoh kalimat, lalu pilih arti yang benar.',review:'Ulangi soal yang pernah salah sampai benar semua.'};
-function startQuiz(mode){
-  quizState.mode=mode;quizState.pool=mode==='review'?reviewPool():shuffleArr(poolFor(mode));
-  quizState.idx=0;quizState.score=0;quizState.total=0;
-  document.getElementById('quizTitle').textContent=quizTitles[mode];
-  document.getElementById('quizSub').textContent=quizSubs[mode];
-  renderQuizItem();
-}
-function updateQuizMeta(){
-  document.getElementById('quizScore').textContent=quizState.score+'/'+quizState.total;
-  const remaining=Object.values(state.mistakes).reduce((s,o)=>s+Object.keys(o).length,0);
-  document.getElementById('reviewCount').textContent=remaining;
-}
-function renderQuizItem(){
-  const box=document.getElementById('quizBox');
-  if(!quizState.pool.length){
-    box.innerHTML=quizState.mode==='review'?'<div class="empty">🎉 Tidak ada kesalahan tersisa. Kerja bagus!</div>':'<div class="empty">Data tidak tersedia.</div>';
-    updateQuizMeta();return;
-  }
-  if(quizState.idx>=quizState.pool.length)quizState.idx=0;
-  const item=quizState.pool[quizState.idx];
-  const answerPool=poolFor(item.type).map(p=>p.answer);
-  const choices=[item.answer];
-  let guard=0;
-  while(choices.length<4 && choices.length<answerPool.length && guard<50){
-    const c=answerPool[Math.floor(Math.random()*answerPool.length)];
-    if(!choices.includes(c))choices.push(c);
-    guard++;
-  }
-  const shuffled=shuffleArr(choices);
-  const big=item.prompt.length<=6;
-  box.innerHTML=`<div class="eyebrow">${item.type.toUpperCase()}</div><h3 style="font-size:${big?'34px':'20px'}">${item.prompt}</h3><div class="reading">${item.sub||''}</div><div id="opts"></div><div class="result" id="quizResult">Pilih jawaban yang benar.</div>`;
-  const opts=document.getElementById('opts');
-  shuffled.forEach(c=>{
-    const b=document.createElement('button');b.className='option';b.textContent=c;
-    b.onclick=()=>answerQuiz(b,c,item);
-    opts.appendChild(b);
-  });
-  updateQuizMeta();
-}
-function answerQuiz(btn,choice,item){
-  document.querySelectorAll('#opts .option').forEach(o=>o.disabled=true);
-  const r=document.getElementById('quizResult');
-  quizState.total++;
-  if(choice===item.answer){
-    btn.classList.add('correct');r.textContent='Benar! ✓';r.style.color='var(--ok)';
-    quizState.score++;
-    if(quizState.mode==='review'&&state.mistakes[item.type]){delete state.mistakes[item.type][item.key];save();}
-    checkMilestones();
-  }else{
-    btn.classList.add('wrong');r.textContent='Belum tepat. Jawaban: '+item.answer;r.style.color='var(--accent)';
-    if(!state.mistakes[item.type])state.mistakes[item.type]={};
-    state.mistakes[item.type][item.key]=true;save();
-    [...document.querySelectorAll('#opts .option')].find(o=>o.textContent===item.answer)?.classList.add('correct');
-  }
-  updateQuizMeta();
-  setTimeout(()=>{quizState.idx++;renderQuizItem();},1000);
-}
-document.querySelectorAll('#practiceTabs .tab').forEach(t=>{
-  t.addEventListener('click',()=>{
-    document.querySelectorAll('#practiceTabs .tab').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');
-    const mode=t.dataset.mode;
-    document.getElementById('practice-flash').style.display=mode==='flash'?'block':'none';
-    document.getElementById('practice-quiz').style.display=mode==='flash'?'none':'block';
-    if(mode!=='flash')startQuiz(mode);
+const glow=document.getElementById('glow');
+let mx=innerWidth/2,my=innerHeight/2,tx=mx,ty=my;
+addEventListener('mousemove',e=>{
+  tx=e.clientX; ty=e.clientY;
+  document.querySelectorAll('.card').forEach(card=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',(e.clientX-r.left)+'px');
+    card.style.setProperty('--my',(e.clientY-r.top)+'px');
   });
 });
-document.querySelector('#practiceTabs .tab[data-mode="flash"]').classList.add('active');
-
-function updateStats(){
-  const moduleDone=Object.values(state.modules).filter(Boolean).length;
-  const vocabDone=Object.values(state.vocab).filter(Boolean).length;
-  const kanjiDone=Object.values(state.kanji).filter(Boolean).length;
-  animateNumber(document.getElementById('roadDone'),moduleDone,'/10');
-  animateNumber(document.getElementById('vocabDone'),vocabDone);
-  animateNumber(document.getElementById('kanjiDone'),kanjiDone);
-  const totalItems=10+VOCAB.length+KANJI.length;
-  const pct=Math.round((moduleDone+vocabDone+kanjiDone)/totalItems*100);
-  animateNumber(document.getElementById('totalProgress'),pct,'%');
-  document.getElementById('totalBar').style.width=pct+'%';
-  const rc=document.getElementById('reviewCount');
-  if(rc)rc.textContent=Object.values(state.mistakes).reduce((s,o)=>s+Object.keys(o).length,0);
-}
-document.getElementById('globalSearch').addEventListener('keydown',e=>{
-  if(e.key==='Enter'){
-    const q=e.target.value.trim(); if(!q)return;
-    if(VOCAB.some(x=>x.join(' ').includes(q))){go('vocab');document.getElementById('vocabSearch').value=q;renderVocab()}
-    else if(KANJI.some(x=>x.join(' ').includes(q))){go('kanji');document.getElementById('kanjiSearch').value=q;renderKanji()}
-    else {go('grammar');document.getElementById('grammarSearch').value=q;renderGrammar()}
-  }
+(function animate(){
+  mx+=(tx-mx)*.12; my+=(ty-my)*.12;
+  glow.style.left=mx+'px'; glow.style.top=my+'px';
+  requestAnimationFrame(animate);
+})();
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    const browser=card.querySelector('.browser');
+    browser.style.transform=`perspective(1200px) rotateX(${-y*3}deg) rotateY(${x*4}deg) translateY(-3px) scale(1.018)`;
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.querySelector('.browser').style.transform='';
+  });
 });
-document.querySelector('.nav button[data-page="home"]').classList.add('active');
-renderRoadmaps();updateStats();updateStreak();positionPill();
 </script>
 </body>
 </html>
